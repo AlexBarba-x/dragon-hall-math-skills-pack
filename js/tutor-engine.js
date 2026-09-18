@@ -14,7 +14,7 @@
 
   var MISSIONS = [
     { id: "mix", title: "Mix & Minus", kid: "Add mix numbers. Some have a minus.", icon: "1" },
-    { id: "ineq", title: "Divide & Compare", kid: "Divide, then pick < > ≤ ≥.", icon: "2" },
+    { id: "ineq", title: "Divide & Compare", kid: "Divide, then pick a compare sign.", icon: "2" },
     { id: "exp", title: "Power Moves", kid: "Multiply, divide, and stack powers.", icon: "3" },
     { id: "pay", title: "Pay Day", kid: "Base pay plus a percent of sales.", icon: "4" }
   ];

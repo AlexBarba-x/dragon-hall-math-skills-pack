@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <title>Pip’s Math Missions · Dragon Hall</title>
   <meta name="description" content="A kid-solo math tutor: signed mixed numbers, quotients and inequalities, exponent laws, and percent pay.">
@@ -170,14 +171,15 @@ p { margin: 0 0 0.7rem; }
   font: inherit;
   color: inherit;
   min-height: 5.4rem;
-  animation: rise 0.45s ease both;
+  animation: rise 0.45s ease;
 }
 .mission:nth-child(2) { animation-delay: 0.06s; }
 .mission:nth-child(3) { animation-delay: 0.12s; }
 .mission:nth-child(4) { animation-delay: 0.18s; }
 .mission:focus-visible { outline: 3px solid var(--gold-deep); outline-offset: 3px; }
 .mission:hover { transform: translateY(-2px); }
-.mission.locked { opacity: 0.72; }
+.mission.locked { opacity: 0.72; border-left-color: #c9bfa6; }
+.mission { border-left: 6px solid var(--gold); }
 .mission .num {
   width: 3.1rem;
   height: 3.1rem;
@@ -193,6 +195,7 @@ p { margin: 0 0 0.7rem; }
 .mission.locked .num { background: #6d7a74; color: #e6e0d2; }
 .mission .copy strong { display: block; font-family: var(--serif); font-size: 1.25rem; color: var(--forest); }
 .mission .copy span { color: var(--ink-soft); font-size: 0.98rem; }
+.nowrap { white-space: nowrap; }
 .stars { letter-spacing: 0.08em; color: var(--gold-deep); font-size: 1.05rem; white-space: nowrap; }
 .stars .off { color: #c9bfa6; }
 
@@ -280,12 +283,25 @@ p { margin: 0 0 0.7rem; }
 .frac-in {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.6rem;
-  align-items: center;
+  gap: 0.85rem 1.1rem;
+  align-items: start;
   margin: 0.9rem 0;
 }
+.field {
+  display: grid;
+  gap: 0.28rem;
+  justify-items: center;
+}
+.field > span {
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--forest-mid);
+}
 .sign-tog {
-  min-width: var(--tap);
+  width: 4.8rem;
+  min-width: 4.8rem;
   min-height: var(--tap);
   border-radius: 16px;
   border: 3px solid var(--forest);
@@ -296,13 +312,14 @@ p { margin: 0 0 0.7rem; }
   cursor: pointer;
 }
 .sign-tog.neg { background: var(--warn-bg); }
-.stack-in { display: grid; gap: 0.35rem; justify-items: center; }
-.stack-in input {
-  width: 4.6rem;
+.stack-in { display: grid; gap: 0.3rem; justify-items: center; }
+#in-whole, .stack-in input {
+  width: 4.8rem;
+  min-width: 4.8rem;
   text-align: center;
 }
 .stack-in .bar {
-  width: 4.6rem;
+  width: 4.8rem;
   height: 3px;
   background: var(--ink);
 }
@@ -503,8 +520,9 @@ input:focus { border-color: var(--forest); outline: none; }
     state.showModel = false;
     state.wrongs = 0;
     state.hintsShown = 0;
-    state.screen = progress.missions[id].taught ? "intro" : "intro";
-    location.hash = id;
+    state.screen = "intro";
+    var cur = (location.hash || "").replace(/^#/, "");
+    if (cur.split("/")[0] !== id) location.hash = id;
     render();
   }
 
@@ -699,14 +717,14 @@ input:focus { border-color: var(--forest); outline: none; }
     if (item.input === "fraction") {
       var neg = state.sign < 0;
       return (
-        '<div class="frac-in">' +
-          '<button class="sign-tog' + (neg ? " neg" : "") + '" type="button" data-act="flip" aria-label="Sign">' + (neg ? "−" : "+") + "</button>" +
-          '<input id="in-whole" type="text" inputmode="numeric" autocomplete="off" aria-label="Whole number" placeholder="whole">' +
-          '<div class="stack-in">' +
-            '<input id="in-num" type="text" inputmode="numeric" autocomplete="off" aria-label="Top number" placeholder="top">' +
+        '<div class="frac-in" role="group" aria-label="Your answer">' +
+          '<label class="field"><span>Sign</span><button class="sign-tog' + (neg ? " neg" : "") + '" type="button" data-act="flip" aria-label="Plus or minus">' + (neg ? "−" : "+") + "</button></label>" +
+          '<label class="field"><span>Whole</span><input id="in-whole" type="text" inputmode="numeric" autocomplete="off" aria-label="Whole number"></label>' +
+          '<div class="field"><span>Fraction</span><div class="stack-in">' +
+            '<input id="in-num" type="text" inputmode="numeric" autocomplete="off" aria-label="Top number">' +
             '<span class="bar"></span>' +
-            '<input id="in-den" type="text" inputmode="numeric" autocomplete="off" aria-label="Bottom number" placeholder="bottom">' +
-          "</div>" +
+            '<input id="in-den" type="text" inputmode="numeric" autocomplete="off" aria-label="Bottom number">' +
+          "</div></div>" +
         "</div>" +
         "<p class='lede'>A mix, or just a fraction, is fine.</p>"
       );
@@ -886,8 +904,12 @@ input:focus { border-color: var(--forest); outline: none; }
       render();
       return;
     }
-    if (E.MISSIONS.some(function (m) { return m.id === id; })) {
-      openMission(id);
+    var parts = id.split("/");
+    var mid = parts[0];
+    if (E.MISSIONS.some(function (m) { return m.id === mid; })) {
+      openMission(mid);
+      if (parts[1] === "try" && E.isUnlocked(progress, mid)) startTry();
+      if (parts[1] === "teach" && E.isUnlocked(progress, mid)) startTeach();
       return;
     }
     state.screen = "home";
