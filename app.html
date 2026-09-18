@@ -1,145 +1,925 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>Dragon Coach — Solo Math Missions</title>
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:system-ui,sans-serif;background:linear-gradient(160deg,#0f172a,#1e1b4b 50%,#0f172a);color:#f1f5f9;padding:12px 12px 40px;max-width:720px;margin:0 auto;min-height:100vh}
-button,input{font:inherit;touch-action:manipulation}
-.hero{text-align:center;padding:20px 8px 8px}
-.dragon{font-size:72px;animation:b 2.5s ease-in-out infinite}
-@keyframes b{50%{transform:translateY(-8px)}}
-h1{font-size:1.6rem;margin:8px 0 4px;color:#e9d5ff}
-.tag{color:#22d3ee;font-size:1.15rem;font-weight:700}
-.sub{color:#94a3b8;margin:6px 0 18px}
-.card{background:#1e293b;border:2px solid #334155;border-radius:18px;padding:18px 16px;display:flex;align-items:center;gap:14px;cursor:pointer;min-height:88px;width:100%;color:inherit;text-align:left;margin-bottom:14px}
-.card.done{border-color:#4ade80}
-.card:active{transform:scale(.98)}
-.me{font-size:2.4rem}
-.mt{font-weight:800;font-size:1.15rem}
-.md{color:#94a3b8;font-size:.88rem}
-.stars{font-size:1.4rem;margin-left:auto}
-.stars .e{opacity:.25}
-.bar{display:flex;align-items:center;gap:10px;margin-bottom:12px}
-.back{background:#334155;border:0;color:#f1f5f9;border-radius:12px;min-width:56px;min-height:56px;font-weight:700}
-.prog{flex:1;background:#0f172a;border-radius:99px;height:14px;border:1px solid #334155;overflow:hidden}
-.pfill{height:100%;background:linear-gradient(90deg,#a78bfa,#22d3ee);width:0;transition:width .35s}
-.panel{background:#1e293b;border-radius:20px;padding:22px 18px;border:1px solid #334155;min-height:260px}
-.panel h2{color:#c4b5fd;margin-bottom:10px}
-.idea{background:#312e81;border-left:4px solid #a78bfa;padding:14px 16px;border-radius:0 14px 14px 0;font-weight:600;margin:14px 0}
-.ex{background:#0f172a;border:2px dashed #22d3ee;border-radius:14px;padding:16px;margin:12px 0;line-height:1.6}
-.q{font-size:1.35rem;font-weight:700;text-align:center;margin:16px 0 20px}
-.row{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:12px 0}
-.in{font-size:1.4rem;padding:14px 16px;border-radius:14px;border:3px solid #334155;background:#0f172a;color:#f1f5f9;min-width:140px;text-align:center;min-height:56px}
-.ch{background:#334155;border:3px solid transparent;border-radius:16px;padding:16px;min-height:56px;font-size:1.15rem;font-weight:600;color:#f1f5f9;width:100%;margin-bottom:10px}
-.ch.sel{border-color:#22d3ee;background:#164e63}
-.btns{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:16px}
-.btn{border:0;border-radius:16px;min-height:56px;padding:14px 28px;font-size:1.15rem;font-weight:800;cursor:pointer;color:#0f172a}
-.bp{background:#22d3ee}.bg{background:#4ade80}.bw{background:#fbbf24}
-.fb{margin-top:14px;padding:14px;border-radius:14px;font-weight:600;text-align:center}
-.ok{background:#14532d;color:#bbf7d0}.no{background:#7f1d1d;color:#fecaca}
-.hi{background:#78350f;color:#fde68a;text-align:left;font-weight:500}
-.so{background:#1e3a5f;color:#bae6fd;text-align:left;font-weight:500}
-.st{text-align:center;color:#94a3b8;margin-top:8px}
-.conf{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:99}
-.cf{position:absolute;width:10px;height:14px;top:-20px;animation:f linear forwards;border-radius:2px}
-@keyframes f{to{transform:translateY(110vh) rotate(720deg);opacity:.3}}
-.cel{text-align:center;padding:28px 16px}.cel h2{color:#4ade80;font-size:1.6rem}
-.fn{text-align:center;color:#94a3b8;font-size:.75rem;margin-top:24px;opacity:.7}
-</style></head><body>
-<div id="app"></div><div class="conf" id="confetti"></div>
-<script>
-(function(){
-const K="dragonCoachStars_v1",N=3;
-const load=()=>{try{return JSON.parse(localStorage.getItem(K))||{A:0,B:0,C:0,D:0}}catch(e){return{A:0,B:0,C:0,D:0}}};
-const save=s=>localStorage.setItem(K,JSON.stringify(s));
-const starsH=n=>{n=Math.min(3,n|0);let o="";for(let i=0;i<3;i++)o+=i<n?"⭐":"<span class='e'>⭐</span>";return o};
-const rnd=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
-const pick=a=>a[rnd(0,a.length-1)];
-const gcd=(a,b)=>{a=Math.abs(a);b=Math.abs(b);while(b){const t=b;b=a%b;a=t}return a||1};
-const simp=(n,d)=>{if(d<0){n=-n;d=-d}const g=gcd(n,d);return[n/g,d/g]};
-function mixOk(u,e){u=String(u).trim().toLowerCase().replace(/−/g,"-").replace(/\s+/g," ");e=String(e).trim().toLowerCase().replace(/−/g,"-").replace(/\s+/g," ");if(u===e)return true;const p=s=>{s=s.replace(/\$/g,"").trim();if(s==="0")return 0;let sg=1;if(s[0]==="-"){sg=-1;s=s.slice(1).trim()}let m=s.match(/^(\d+)\s+(\d+)\s*\/\s*(\d+)$/);if(m)return sg*(+m[1]+(+m[2])/(+m[3]));m=s.match(/^(\d+)\s*\/\s*(\d+)$/);if(m)return sg*((+m[1])/(+m[2]));m=s.match(/^(\d+)$/);if(m)return sg*(+m[1]);m=s.match(/^(\d+\.\d+)$/);if(m)return sg*parseFloat(s);return null};const a=p(u),b=p(e);return a!=null&&b!=null&&Math.abs(a-b)<1e-6}
-function moneyOk(u,e){u=String(u).trim().replace(/[$,\s]/g,"");e=String(e).trim().replace(/\$/g,"");if(u===e)return true;const a=parseFloat(u),b=parseFloat(e);return!isNaN(a)&&!isNaN(b)&&Math.abs(a-b)<.01}
-
-const M={
-A:{id:"A",emoji:"🧮",title:"Signed Mixed Numbers",desc:"Add mixed numbers — watch the signs!",
-teach:`<p>Turn mixed numbers into <strong>improper fractions</strong>, then add the tops over the same bottom.</p><div class="idea">Same denominator → add numerators. Keep each sign.</div>`,
-ex:["Look: −1 1/4 + 2 3/4","Improper: −5/4 + 11/4","Add tops: (−5+11)/4 = 6/4","Simplify → 1 1/2"],
-gen(){const d=pick([2,3,4,5,6,8]),aW=pick([-2,-1,1,2]),bW=pick([-2,-1,0,1,2]),aN=rnd(1,d-1),bN=rnd(0,d-1);
-const aImp=aW<0?-(Math.abs(aW)*d+aN):(aW*d+aN);let bImp,bD;
-if(bN===0){bImp=bW;bD=String(bW)}else if(bW===0){bImp=Math.random()<.5?bN:-bN;bD=(bImp<0?"−":"")+bN+"/"+d}else{bImp=bW<0?-(Math.abs(bW)*d+bN):(bW*d+bN);bD=(bW<0?"−":"")+Math.abs(bW)+" "+bN+"/"+d}
-const aD=(aW<0?"−":"")+Math.abs(aW)+" "+aN+"/"+d,sum=aImp+bImp;
-const fmt=imp=>{if(!imp)return"0";let[nn,dd]=simp(imp,d);const sg=nn<0?-1:1,abs=Math.abs(nn),w=Math.floor(abs/dd),r=abs%dd;if(!r)return String(sg*w);if(!w)return(sg<0?"-":"")+r+"/"+dd;return(sg<0?"-":"")+w+" "+r+"/"+dd};
-const ans=fmt(sum);
-return{prompt:"What is "+aD+" + ("+bD+") ?",type:"input",ok:mixOk,answer:ans,hint:"Make improper fractions with /"+d+", then add tops.",solution:"Worked: "+aD+" = "+aImp+"/"+d+". "+bD+" = "+bImp+"/"+d+". Sum → "+ans}}},
-B:{id:"B",emoji:"⚖️",title:"Quotient → Inequality",desc:"Divide, then pick the right inequality.",
-teach:`<p>Find the <strong>quotient</strong>, then choose the true inequality.</p><div class="idea">Divide → compare: bigger, smaller, or equal?</div>`,
-ex:["18 ÷ 4 vs 5","Quotient = 4.5","4.5 < 5? Yes!","True: 18÷4 < 5"],
-gen(){const b=pick([2,3,4,5,6,8]),qw=rnd(2,9),rem=rnd(1,b-1),a=qw*b+rem,q=a/b,c=pick([qw,qw+1,qw+2,Math.floor(q),Math.ceil(q)].filter((v,i,x)=>x.indexOf(v)===i));
-let op;if(Math.abs(q-c)<1e-9)op="=";else if(q<c)op="<";else op=">";
-const ch=["<",">","="].map(o=>({text:a+" ÷ "+b+" "+o+" "+c,ok:o===op}));
-for(let i=ch.length-1;i>0;i--){const j=rnd(0,i);[ch[i],ch[j]]=[ch[j],ch[i]]}
-return{prompt:"Pick the true inequality. First find "+a+" ÷ "+b+".",type:"choice",choices:ch,hint:"Compute "+a+"÷"+b+" ≈ "+(Math.round(q*100)/100)+", compare to "+c+".",solution:a+"÷"+b+"="+q+". True op is "+op}}},
-C:{id:"C",emoji:"⚡",title:"Exponent Laws",desc:"Multiply & divide powers — add or subtract exponents.",
-teach:`<p>Same base?</p><div class="idea">a<sup>m</sup>·a<sup>n</sup>=a<sup>m+n</sup><br>a<sup>m</sup>÷a<sup>n</sup>=a<sup>m−n</sup></div>`,
-ex:["3⁴ · 3²","Add exponents: 4+2=6","Answer: 3⁶","5⁷÷5³ → 5⁴"],
-gen(){const base=pick([2,3,4,5,6,7,8,10]),mul=Math.random()<.5;let e1,e2,ans,p,h,s;
-if(mul){e1=rnd(2,8);e2=rnd(2,6);ans=e1+e2;p="Simplify: "+base+"^"+e1+" × "+base+"^"+e2;h="ADD exponents: "+e1+"+"+e2;s=base+"^"+ans}
-else{e1=rnd(5,12);e2=rnd(2,e1-1);ans=e1-e2;p="Simplify: "+base+"^"+e1+" ÷ "+base+"^"+e2;h="SUBTRACT: "+e1+"−"+e2;s=base+"^"+ans}
-const correct=base+"^"+ans;let opts=[correct,base+"^"+(e1*e2),base+"^"+Math.abs(e1-e2),base+"^"+(ans+1)];
-opts=[...new Set(opts)].slice(0,4);if(!opts.includes(correct))opts[0]=correct;
-for(let i=opts.length-1;i>0;i--){const j=rnd(0,i);[opts[i],opts[j]]=[opts[j],opts[i]]}
-return{prompt:p,type:"choice",choices:opts.map(t=>({text:t,ok:t===correct})),hint:h,solution:"Worked → "+s}}},
-D:{id:"D",emoji:"💵",title:"Base Pay + % Sales",desc:"Earn a base wage plus a percent of sales.",
-teach:`<p>Total = <strong>base</strong> + <strong>% of sales</strong>.</p><div class="idea">(percent÷100)×sales, then add base.</div>`,
-ex:["Base $200, sales $800, 5%","0.05×800=$40","Total $240"],
-gen(){const base=pick([150,200,250,300,400,500]),sales=pick([400,500,600,800,1000,1200]),pct=pick([2,3,4,5,6,8,10]),tot=Math.round(base+sales*pct/100);
-return{prompt:"Base $"+base+". Sales $"+sales+". Commission "+pct+"%. Total pay?",type:"input",ok:moneyOk,answer:String(tot),prefix:"$",hint:pct+"% of $"+sales+", then add $"+base+".",solution:"Worked: commission="+(sales*pct/100)+". Total=$"+tot}}}
-};
-
-let stars=load(),screen="home",mid=null,phase="teach",exI=0,item=null,fails=0,streak=0,pc=0,sel=null,fb=null,showH=false,showS=false;
-const el=document.getElementById("app");
-const pct=()=>phase==="teach"?8:phase==="example"?20+exI*10:phase==="practice"?Math.min(85,35+streak*(50/N)):100;
-const lab=()=>({teach:"Teach",example:"Example",practice:"Practice",celebrate:"Done!"})[phase]||"";
-
-function home(){
-  el.innerHTML=`<div class="hero"><div class="dragon">🐉</div><h1>Dragon Coach</h1><div class="tag">You can do this alone</div><p class="sub">Pick a mission. I’ll teach, show an example, then you practice for a star.</p></div>`+
-    ["A","B","C","D"].map(id=>{const m=M[id],st=stars[id]|0;return `<button class="card${st?" done":""}" data-id="${id}"><div class="me">${m.emoji}</div><div><div class="mt">Mission ${id}: ${m.title}</div><div class="md">${m.desc}</div></div><div class="stars">${starsH(st)}</div></button>`}).join("")+
-    `<p class="fn">Stars save on this device via localStorage. No login.</p>`;
-  el.querySelectorAll("[data-id]").forEach(b=>b.onclick=()=>start(b.dataset.id));
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>Pip’s Math Missions · Dragon Hall</title>
+  <meta name="description" content="A kid-solo math tutor: signed mixed numbers, quotients and inequalities, exponent laws, and percent pay.">
+  <link rel="icon" href="img/mark.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+:root {
+  --forest: #0d3b2e;
+  --forest-deep: #08241c;
+  --forest-mid: #164a3a;
+  --leaf: #1f6b52;
+  --gold: #e8c547;
+  --gold-deep: #c9a227;
+  --gold-soft: #f3de8a;
+  --cream: #f7f1e3;
+  --paper: #fffaf0;
+  --ink: #1c1812;
+  --ink-soft: #4a4338;
+  --good: #1d6b45;
+  --good-bg: #dceee6;
+  --warn: #8a4b12;
+  --warn-bg: #f6e3d8;
+  --almost: #6b4a12;
+  --almost-bg: #f3e7c4;
+  --shadow: 0 16px 36px rgba(8, 36, 28, 0.16);
+  --serif: "Fraunces", "Iowan Old Style", Georgia, serif;
+  --sans: "Nunito", "Segoe UI", system-ui, sans-serif;
+  --tap: 3.25rem;
 }
-function start(id){mid=id;screen="mission";phase="teach";exI=0;streak=0;pc=0;fails=0;item=null;sel=null;fb=null;showH=false;showS=false;draw()}
-function newItem(){item=M[mid].gen();fails=0;sel=null;fb=null;showH=false;showS=false;pc++;phase="practice";draw()}
-function draw(){if(screen==="home")return home();const m=M[mid];let body="";
-if(phase==="teach")body=`<div class="panel"><h2>One big idea</h2>${m.teach}<div class="btns"><button class="btn bp" id="nx">Got it — show example →</button></div></div>`;
-else if(phase==="example"){const steps=m.ex.slice(0,exI+1).map(s=>`<div>👉 ${s}</div>`).join("");const last=exI>=m.ex.length-1;
-body=`<div class="panel"><h2>Example together</h2><p>Tap Next for each step.</p><div class="ex">${steps}</div><div class="btns"><button class="btn bp" id="nx">${last?"I’m ready to practice →":"Next step →"}</button></div></div>`}
-else if(phase==="practice")body=prac();
-else body=`<div class="panel cel"><div style="font-size:64px">🌟🐉🎉</div><h2>Mission star earned!</h2><p>You did that alone.</p><div class="stars" style="font-size:2rem;justify-content:center;display:flex;margin:12px">${starsH(stars[mid])}</div><div class="btns"><button class="btn bg" id="hm">Back to missions</button></div></div>`;
-el.innerHTML=`<div class="bar"><button class="back" id="bk">←</button><div class="prog"><div class="pfill" style="width:${pct()}%"></div></div><div style="font-size:.8rem;color:#94a3b8;min-width:72px;text-align:right">${lab()}</div></div><p style="text-align:center;font-weight:800;margin-bottom:8px">${m.emoji} ${m.title}</p>${body}${phase==="practice"?`<div class="st">Streak: ${streak} / ${N} for a star</div>`:""}`;
-const bk=document.getElementById("bk");if(bk)bk.onclick=()=>{screen="home";home()};
-const hm=document.getElementById("hm");if(hm)hm.onclick=()=>{screen="home";home()};
-const nx=document.getElementById("nx");if(nx)nx.onclick=()=>{if(phase==="teach"){phase="example";exI=0;draw()}else if(phase==="example"){if(exI<M[mid].ex.length-1){exI++;draw()}else newItem()}};
-wire()}
-function prac(){let area="";if(item.type==="choice")area=item.choices.map((c,i)=>`<button class="ch${sel===i?" sel":""}" data-i="${i}">${c.text}</button>`).join("");
-else area=`<div class="row">${item.prefix?`<span style="font-size:1.4rem;font-weight:800">${item.prefix}</span>`:""}<input class="in" id="ans" placeholder="Type answer"></div>`;
-let f="";if(fb)f=`<div class="fb ${fb.k}">${fb.t}</div>`;if(showH&&item.hint)f+=`<div class="fb hi">💡 Hint: ${item.hint}</div>`;if(showS&&item.solution)f+=`<div class="fb so">📘 ${item.solution}</div>`;
-return `<div class="panel"><h2>Your turn</h2><div class="q">${item.prompt}</div>${area}<div class="btns">${showS?`<button class="btn bp" id="nw">Try a new one →</button>`:`<button class="btn bp" id="ck">Check</button><button class="btn bw" id="hi">Hint</button>`}</div>${f}</div>`}
-function wire(){if(phase!=="practice")return;
-el.querySelectorAll(".ch").forEach(b=>b.onclick=()=>{if(showS)return;sel=+b.dataset.i;draw()});
-const ans=document.getElementById("ans");if(ans){ans.onkeydown=e=>{if(e.key==="Enter")check()};setTimeout(()=>ans.focus(),40)}
-const ck=document.getElementById("ck");if(ck)ck.onclick=check;
-const hi=document.getElementById("hi");if(hi)hi.onclick=()=>{showH=true;fb={k:"hi",t:"Take one step — then try again!"};draw()};
-const nw=document.getElementById("nw");if(nw)nw.onclick=newItem}
-function check(){if(!item||showS)return;let ok=false;
-if(item.type==="choice"){if(sel==null){fb={k:"no",t:"Tap an answer first!"};draw();return}ok=!!item.choices[sel].ok}
-else{const v=(document.getElementById("ans")||{}).value||"";if(!String(v).trim()){fb={k:"no",t:"Type your answer first!"};draw();return}ok=item.ok(v,item.answer)}
-if(ok){streak++;fb={k:"ok",t:pick(["Yes! Nailed it! 🎉","You got it! 🐉","Awesome — correct! ⭐"])};showH=false;draw();if(streak>=N)setTimeout(done,700);else setTimeout(newItem,900)}
-else{fails++;streak=0;if(fails>=2){showS=true;showH=true;fb={k:"no",t:"Let’s see the worked solution, then try a new one."}}else fb={k:"no",t:pick(["Not yet — try again!","Close — check your work.","Hmm, not that. Hint?"])};draw()}}
-function done(){stars[mid]=Math.min(3,(stars[mid]|0)+1);save(stars);phase="celebrate";confetti();draw()}
-function confetti(){const L=document.getElementById("confetti");L.innerHTML="";const cols=["#22d3ee","#a78bfa","#4ade80","#fbbf24","#f472b6"];
-for(let i=0;i<48;i++){const d=document.createElement("div");d.className="cf";d.style.left=Math.random()*100+"%";d.style.background=cols[i%5];d.style.animationDuration=(1.5+Math.random()*2)+"s";d.style.animationDelay=Math.random()*.5+"s";L.appendChild(d)}setTimeout(()=>L.innerHTML="",4000)}
-home();
+
+* { box-sizing: border-box; }
+html, body { margin: 0; min-height: 100%; }
+body {
+  color: var(--ink);
+  background:
+    radial-gradient(900px 420px at 8% -8%, rgba(232, 197, 71, 0.2), transparent 50%),
+    radial-gradient(700px 360px at 110% 0%, rgba(31, 107, 82, 0.14), transparent 46%),
+    var(--cream);
+  font-family: var(--sans);
+  font-size: 1.15rem;
+  line-height: 1.45;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+.skip {
+  position: absolute;
+  left: -999px;
+  top: 0;
+}
+.skip:focus {
+  left: 0.8rem;
+  top: 0.8rem;
+  z-index: 30;
+  background: var(--gold);
+  color: var(--forest-deep);
+  padding: 0.5rem 0.8rem;
+  border-radius: 8px;
+}
+
+.top {
+  background: linear-gradient(160deg, var(--forest-deep), var(--forest) 62%, var(--forest-mid));
+  color: var(--cream);
+  border-bottom: 5px solid var(--gold);
+  padding: 0.65rem 1rem;
+  padding-top: max(0.65rem, env(safe-area-inset-top));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: inherit;
+  text-decoration: none;
+}
+.brand svg { width: 42px; height: 42px; flex: none; }
+.brand strong {
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  display: block;
+}
+.brand small {
+  display: block;
+  color: var(--gold-soft);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+.top-actions { display: flex; gap: 0.4rem; }
+.icon-btn {
+  appearance: none;
+  min-width: var(--tap);
+  min-height: var(--tap);
+  border-radius: 16px;
+  border: 2px solid var(--gold);
+  background: transparent;
+  color: var(--gold);
+  font: inherit;
+  font-weight: 800;
+  padding: 0 0.7rem;
+  cursor: pointer;
+}
+.icon-btn:hover, .icon-btn:focus-visible { background: rgba(232, 197, 71, 0.12); }
+
+#stage {
+  flex: 1;
+  width: min(40rem, 100%);
+  margin: 0 auto;
+  padding: 1rem 1rem 2rem;
+}
+
+.coach {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.75rem;
+  align-items: start;
+  margin: 0 0 1rem;
+}
+.coach .face {
+  width: 88px;
+  height: 88px;
+}
+.bubble {
+  background: var(--paper);
+  border: 3px solid var(--forest);
+  border-radius: 22px 22px 22px 8px;
+  padding: 0.85rem 1rem;
+  box-shadow: var(--shadow);
+  font-size: 1.2rem;
+  font-weight: 800;
+}
+.bubble p { margin: 0; }
+
+h1, h2 {
+  font-family: var(--serif);
+  line-height: 1.15;
+  color: var(--forest);
+  margin: 0 0 0.5rem;
+}
+h1 { font-size: clamp(1.8rem, 6vw, 2.5rem); }
+h2 { font-size: 1.35rem; }
+p { margin: 0 0 0.7rem; }
+.lede { color: var(--ink-soft); font-size: 1.12rem; }
+
+.mission-list { display: grid; gap: 0.75rem; }
+.mission {
+  appearance: none;
+  width: 100%;
+  text-align: left;
+  border: 0;
+  background: var(--paper);
+  border-radius: 22px;
+  padding: 1rem 1.1rem;
+  box-shadow: var(--shadow);
+  display: grid;
+  grid-template-columns: 3.1rem 1fr auto;
+  gap: 0.8rem;
+  align-items: center;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  min-height: 5.4rem;
+  animation: rise 0.45s ease;
+}
+.mission:nth-child(2) { animation-delay: 0.06s; }
+.mission:nth-child(3) { animation-delay: 0.12s; }
+.mission:nth-child(4) { animation-delay: 0.18s; }
+.mission:focus-visible { outline: 3px solid var(--gold-deep); outline-offset: 3px; }
+.mission:hover { transform: translateY(-2px); }
+.mission.locked { opacity: 0.72; border-left-color: #c9bfa6; }
+.mission { border-left: 6px solid var(--gold); }
+.mission .num {
+  width: 3.1rem;
+  height: 3.1rem;
+  border-radius: 50%;
+  background: var(--forest);
+  color: var(--gold);
+  display: grid;
+  place-items: center;
+  font-family: var(--serif);
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+.mission.locked .num { background: #6d7a74; color: #e6e0d2; }
+.mission .copy strong { display: block; font-family: var(--serif); font-size: 1.25rem; color: var(--forest); }
+.mission .copy span { color: var(--ink-soft); font-size: 0.98rem; }
+.nowrap { white-space: nowrap; }
+.stars { letter-spacing: 0.08em; color: var(--gold-deep); font-size: 1.05rem; white-space: nowrap; }
+.stars .off { color: #c9bfa6; }
+
+.panel {
+  background: var(--paper);
+  border-radius: 24px;
+  padding: 1.15rem 1.15rem 1.3rem;
+  box-shadow: var(--shadow);
+}
+.meta {
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  color: var(--gold-deep);
+  margin: 0 0 0.35rem;
+}
+.gloss {
+  background: #e7f0ea;
+  border-radius: 14px;
+  padding: 0.55rem 0.75rem;
+  color: var(--forest-mid);
+  font-size: 1rem;
+}
+.demo {
+  margin: 0.8rem 0;
+  padding: 0.85rem;
+  background: #fff6d8;
+  border-radius: 16px;
+  font-size: 1.35rem;
+  text-align: center;
+  font-weight: 800;
+}
+.eq { color: var(--leaf); }
+.sign-list { padding-left: 1.1rem; margin: 0.4rem 0 0; }
+.sign-list li { margin: 0.35rem 0; }
+
+.mn { font-family: var(--serif); font-size: 1.45rem; white-space: nowrap; }
+.frac {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  vertical-align: middle;
+  line-height: 1.05;
+  margin: 0 0.12em;
+}
+.frac span:first-child {
+  border-bottom: 3px solid var(--ink);
+  padding: 0 0.2em 0.08em;
+}
+.frac span:last-child { padding: 0.08em 0.2em 0; }
+
+.actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.65rem;
+  margin-top: 1rem;
+}
+.actions.stack, .actions.one { grid-template-columns: 1fr; }
+.btn {
+  appearance: none;
+  min-height: var(--tap);
+  border: 0;
+  border-radius: 999px;
+  background: var(--forest);
+  color: var(--gold);
+  font: inherit;
+  font-weight: 800;
+  padding: 0.7rem 1.1rem;
+  cursor: pointer;
+}
+.btn:hover { background: var(--forest-deep); }
+.btn:focus-visible { outline: 3px solid var(--gold-deep); outline-offset: 3px; }
+.btn:disabled { opacity: 0.5; cursor: default; }
+.btn.ghost {
+  background: transparent;
+  color: var(--forest);
+  border: 3px solid var(--forest);
+}
+.btn.warn { background: #7a3e12; color: #ffe7c4; }
+
+.prompt { font-size: 1.2rem; }
+.prompt .mn { display: inline-block; margin-top: 0.35rem; }
+
+.frac-in {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem 1.1rem;
+  align-items: start;
+  margin: 0.9rem 0;
+}
+.field {
+  display: grid;
+  gap: 0.28rem;
+  justify-items: center;
+}
+.field > span {
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--forest-mid);
+}
+.sign-tog {
+  width: 4.8rem;
+  min-width: 4.8rem;
+  min-height: var(--tap);
+  border-radius: 16px;
+  border: 3px solid var(--forest);
+  background: #fff;
+  font: inherit;
+  font-weight: 800;
+  font-size: 1.6rem;
+  cursor: pointer;
+}
+.sign-tog.neg { background: var(--warn-bg); }
+.stack-in { display: grid; gap: 0.3rem; justify-items: center; }
+#in-whole, .stack-in input {
+  width: 4.8rem;
+  min-width: 4.8rem;
+  text-align: center;
+}
+.stack-in .bar {
+  width: 4.8rem;
+  height: 3px;
+  background: var(--ink);
+}
+input[type="text"], input[type="number"] {
+  font: inherit;
+  font-size: 1.35rem;
+  font-weight: 800;
+  padding: 0.65rem 0.55rem;
+  border-radius: 14px;
+  border: 3px solid #c9bfa6;
+  background: #fff;
+  min-height: var(--tap);
+  max-width: 100%;
+}
+input:focus { border-color: var(--forest); outline: none; }
+.wide { width: min(16rem, 100%); }
+
+.choices, .signs {
+  display: grid;
+  gap: 0.55rem;
+  margin: 0.8rem 0;
+}
+.signs { grid-template-columns: repeat(4, 1fr); }
+.choice, .sign {
+  appearance: none;
+  min-height: var(--tap);
+  border-radius: 16px;
+  border: 3px solid #c9bfa6;
+  background: #fff;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+  padding: 0.7rem;
+}
+.choice[aria-pressed="true"], .sign[aria-pressed="true"] {
+  border-color: var(--forest);
+  background: #e7f0ea;
+}
+.sign { font-size: 1.7rem; font-family: var(--serif); }
+
+.fb {
+  min-height: 1.3em;
+  margin: 0.7rem 0 0;
+  padding: 0.7rem 0.85rem;
+  border-radius: 14px;
+  font-weight: 800;
+}
+.fb.ok { background: var(--good-bg); color: var(--good); }
+.fb.almost { background: var(--almost-bg); color: var(--almost); }
+.fb.no { background: var(--warn-bg); color: var(--warn); }
+.hint-line {
+  margin-top: 0.7rem;
+  background: #ece6f5;
+  border-radius: 14px;
+  padding: 0.7rem 0.85rem;
+  font-weight: 700;
+}
+
+.steps { padding-left: 1.15rem; margin: 0.4rem 0 0; }
+.steps li { margin: 0.45rem 0; }
+
+.win {
+  text-align: center;
+  padding: 0.4rem 0 0.2rem;
+}
+.win .burst {
+  font-size: 2rem;
+  letter-spacing: 0.12em;
+  color: var(--gold-deep);
+  animation: pop 0.5s ease;
+}
+.tiny {
+  margin-top: 1.6rem;
+  text-align: center;
+  font-size: 0.85rem;
+}
+.tiny a { color: var(--leaf); }
+.grownup p { color: var(--ink-soft); }
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes pop {
+  from { transform: scale(0.7); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mission, .win .burst { animation: none; }
+}
+
+@media (max-width: 520px) {
+  .coach .face { width: 72px; height: 72px; }
+  .signs { grid-template-columns: repeat(2, 1fr); }
+  .brand small { display: none; }
+}
+
+@media (min-width: 720px) {
+  body { font-size: 1.2rem; }
+  #stage { padding-top: 1.4rem; }
+}
+  </style>
+</head>
+<body>
+  <a class="skip" href="#stage">Skip to mission</a>
+  <header class="top">
+    <a class="brand" href="#home" id="brand-home">
+      <svg viewBox="0 0 96 96" aria-hidden="true"><circle cx="48" cy="48" r="45" fill="#0d3b2e"/><circle cx="48" cy="48" r="40" fill="none" stroke="#e8c547" stroke-width="2.4"/><path d="M22 58c6-16 16-26 30-28 4 8 10 14 20 16-8 6-12 16-10 26-10-4-22-4-32-2 2-6 0-10-8-12z" fill="#1a5c45"/><path d="M28 50c8-12 18-18 28-18 2 6 8 11 16 13-8 4-10 12-8 20-8-3-18-3-26-1" fill="#e8c547"/><path d="M40 42c6-2 12 0 14 6" fill="none" stroke="#0d3b2e" stroke-width="2" stroke-linecap="round"/><circle cx="58" cy="44" r="2.2" fill="#0d3b2e"/><path d="M62 38l10-6-2 10" fill="#c9a227"/></svg>
+      <span><strong>Dragon Hall</strong><small>Pip’s math missions</small></span>
+    </a>
+    <div class="top-actions">
+      <button class="icon-btn" type="button" id="btn-home" hidden>Home</button>
+    </div>
+  </header>
+  <main id="stage"></main>
+  <script src="js/tutor-engine.js"></script>
+  <script>
+(function () {
+  var E = window.DHEngine;
+  var stage = document.getElementById("stage");
+  var homeBtn = document.getElementById("btn-home");
+  var itemCount = 0;
+  var state = {
+    screen: "home",
+    missionId: null,
+    teachIndex: 0,
+    item: null,
+    wrongs: 0,
+    hintsShown: 0,
+    feedback: null,
+    selected: "",
+    sign: 1,
+    draft: {},
+    showModel: false
+  };
+
+  if (!E) {
+    stage.innerHTML = "<div class='panel'><h1>Pip needs one more file.</h1><p>Keep <code>app.html</code> next to the <code>js</code> folder, then open it again.</p></div>";
+    return;
+  }
+
+  var progress = E.loadProgress();
+
+  function save() { E.saveProgress(progress); }
+
+  function escapeHtml(s) {
+    return String(s)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
+  function stars(n) {
+    var s = "";
+    for (var i = 0; i < 5; i++) s += i < n ? "★" : "<span class='off'>★</span>";
+    return s;
+  }
+
+  function face() {
+    return '<svg class="face" viewBox="0 0 96 96" aria-hidden="true"><circle cx="48" cy="48" r="45" fill="#0d3b2e"/><circle cx="48" cy="48" r="40" fill="none" stroke="#e8c547" stroke-width="2.4"/><path d="M22 58c6-16 16-26 30-28 4 8 10 14 20 16-8 6-12 16-10 26-10-4-22-4-32-2 2-6 0-10-8-12z" fill="#1a5c45"/><path d="M28 50c8-12 18-18 28-18 2 6 8 11 16 13-8 4-10 12-8 20-8-3-18-3-26-1" fill="#e8c547"/><path d="M40 42c6-2 12 0 14 6" fill="none" stroke="#0d3b2e" stroke-width="2" stroke-linecap="round"/><circle cx="58" cy="44" r="2.2" fill="#0d3b2e"/><path d="M62 38l10-6-2 10" fill="#c9a227"/></svg>';
+  }
+
+  function coach(text) {
+    return '<div class="coach"><div>' + face() + '</div><div class="bubble"><p>' + text + "</p></div></div>";
+  }
+
+  function missionMeta(id) {
+    return E.MISSIONS.find(function (m) { return m.id === id; });
+  }
+
+  function freshItem(id) {
+    itemCount += 1;
+    return E.makeItem(id, E.makeRng((Date.now() + itemCount * 10007) >>> 0));
+  }
+
+  function goHome() {
+    state.screen = "home";
+    state.missionId = null;
+    state.feedback = null;
+    state.showModel = false;
+    location.hash = "home";
+    render();
+  }
+
+  function openMission(id) {
+    if (!E.isUnlocked(progress, id)) {
+      state.screen = "locked";
+      state.missionId = id;
+      location.hash = id;
+      render();
+      return;
+    }
+    state.missionId = id;
+    state.teachIndex = 0;
+    state.feedback = null;
+    state.selected = "";
+    state.showModel = false;
+    state.wrongs = 0;
+    state.hintsShown = 0;
+    state.screen = "intro";
+    var cur = (location.hash || "").replace(/^#/, "");
+    if (cur.split("/")[0] !== id) location.hash = id;
+    render();
+  }
+
+  function startTeach() {
+    state.screen = "teach";
+    state.teachIndex = 0;
+    render();
+  }
+
+  function startTry() {
+    E.markTaught(progress, state.missionId);
+    save();
+    state.screen = "try";
+    state.item = freshItem(state.missionId);
+    state.wrongs = 0;
+    state.hintsShown = 0;
+    state.feedback = null;
+    state.selected = "";
+    state.showModel = false;
+    state.sign = 1;
+    state.draft = {};
+    render();
+  }
+
+  function readAnswer() {
+    var item = state.item;
+    if (!item) return "";
+    if (item.input === "fraction") {
+      var sign = state.sign < 0 ? "-" : "";
+      var w = (document.getElementById("in-whole") || {}).value || "";
+      var n = (document.getElementById("in-num") || {}).value || "";
+      var d = (document.getElementById("in-den") || {}).value || "";
+      w = String(w).trim();
+      n = String(n).trim();
+      d = String(d).trim();
+      if (w && n && d) return sign + w + " " + n + "/" + d;
+      if (n && d) return sign + n + "/" + d;
+      if (w && !n && !d) return sign + w;
+      return "";
+    }
+    if (item.input === "power") {
+      var b = (document.getElementById("in-base") || {}).value || "";
+      var e = (document.getElementById("in-exp") || {}).value || "";
+      var plain = (document.getElementById("in-plain") || {}).value || "";
+      if (String(plain).trim()) return String(plain).trim();
+      if (String(b).trim() && String(e).trim()) return String(b).trim() + "^" + String(e).trim();
+      return "";
+    }
+    if (item.input === "money") {
+      return ((document.getElementById("in-money") || {}).value || "").trim();
+    }
+    return state.selected;
+  }
+
+  function snapshotDraft() {
+    state.draft = {
+      whole: ((document.getElementById("in-whole") || {}).value || ""),
+      num: ((document.getElementById("in-num") || {}).value || ""),
+      den: ((document.getElementById("in-den") || {}).value || ""),
+      base: ((document.getElementById("in-base") || {}).value || ""),
+      exp: ((document.getElementById("in-exp") || {}).value || ""),
+      plain: ((document.getElementById("in-plain") || {}).value || ""),
+      money: ((document.getElementById("in-money") || {}).value || "")
+    };
+  }
+
+  function fill(id, key) {
+    var el = document.getElementById(id);
+    if (el && state.draft && state.draft[key] != null) el.value = state.draft[key];
+  }
+
+  function restoreDraft() {
+    fill("in-whole", "whole");
+    fill("in-num", "num");
+    fill("in-den", "den");
+    fill("in-base", "base");
+    fill("in-exp", "exp");
+    fill("in-plain", "plain");
+    fill("in-money", "money");
+  }
+
+  function onCheck() {
+    if (!state.item || state.showModel) return;
+    snapshotDraft();
+    var raw = readAnswer();
+    var grade = state.item.grade(raw);
+    state.feedback = grade;
+    if (grade.result === "correct") {
+      E.applyGrade(progress, state.missionId, "correct");
+      save();
+      state.wrongs = 0;
+      if (progress.missions[state.missionId].mastered && progress.missions[state.missionId].streak >= E.MASTERY_STREAK) {
+        state.screen = "win";
+      }
+    } else if (grade.result === "almost" || grade.result === "try") {
+      state.wrongs += 1;
+      E.applyGrade(progress, state.missionId, grade.result);
+      save();
+      if (state.wrongs >= E.HINT_AFTER_WRONG) state.showModel = true;
+    }
+    render();
+  }
+
+  function onHint() {
+    if (!state.item) return;
+    var line = E.hintText(state.item, state.hintsShown);
+    if (state.hintsShown < state.item.hints.length) state.hintsShown += 1;
+    state.feedback = { result: "hint", message: line };
+    render();
+  }
+
+  function nextItem() {
+    state.item = freshItem(state.missionId);
+    state.wrongs = 0;
+    state.hintsShown = 0;
+    state.feedback = null;
+    state.selected = "";
+    state.showModel = false;
+    state.sign = 1;
+    state.draft = {};
+    state.screen = "try";
+    render();
+  }
+
+  function renderHome() {
+    var cards = E.MISSIONS.map(function (m, i) {
+      var row = progress.missions[m.id];
+      var open = E.isUnlocked(progress, m.id);
+      var lock = open ? "" : " locked";
+      var tag = open ? (row.mastered ? "Replay" : "Start") : "Locked";
+      return (
+        '<button class="mission' + lock + '" type="button" data-open="' + m.id + '">' +
+          '<span class="num">' + (open ? m.icon : "🔒") + "</span>" +
+          '<span class="copy"><strong>' + m.title + "</strong><span>" + m.kid + "</span></span>" +
+          '<span class="stars" aria-label="' + row.stars + " stars\">" + stars(row.stars) + "<br><small>" + tag + "</small></span>" +
+        "</button>"
+      );
+    }).join("");
+    var done = E.MISSIONS.filter(function (m) { return progress.missions[m.id].mastered; }).length;
+    stage.innerHTML =
+      coach("Hi. I’m Pip. Pick a mission. I’ll help one step at a time.") +
+      "<h1>Pick a mission</h1>" +
+      '<p class="lede">You can do this by yourself. Big buttons. I’ll check your work.</p>' +
+      '<div class="mission-list">' + cards + "</div>" +
+      '<p class="tiny"><a href="#grownup">Grown-up</a>' +
+      (done ? " · " + done + " of 4 missions done" : "") +
+      "</p>";
+  }
+
+  function renderLocked() {
+    var prev = E.MISSIONS[E.MISSIONS.findIndex(function (m) { return m.id === state.missionId; }) - 1];
+    stage.innerHTML =
+      coach("This door is still shut.") +
+      '<div class="panel"><h1>Not yet</h1><p>Finish <b>' +
+      (prev ? prev.title : "the first mission") +
+      "</b> first. Then this one opens.</p>" +
+      '<div class="actions one"><button class="btn" type="button" data-act="home">Back to missions</button></div></div>';
+  }
+
+  function renderIntro() {
+    var m = missionMeta(state.missionId);
+    var row = progress.missions[state.missionId];
+    var extra = row.taught
+      ? '<div class="actions"><button class="btn" type="button" data-act="try">Practice</button><button class="btn ghost" type="button" data-act="teach">See the steps</button></div>'
+      : '<div class="actions one"><button class="btn" type="button" data-act="teach">Start</button></div>';
+    stage.innerHTML =
+      coach("One idea at a time. Then you try.") +
+      '<div class="panel"><p class="meta">Mission ' + m.icon + " of 4</p><h1>" + m.title + "</h1><p>" + m.kid + "</p>" +
+      '<p class="stars">' + stars(row.stars) + "</p>" +
+      extra + "</div>";
+  }
+
+  function renderTeach() {
+    var m = missionMeta(state.missionId);
+    var steps = E.TEACH[state.missionId];
+    var step = steps[state.teachIndex];
+    var last = state.teachIndex === steps.length - 1;
+    var back = state.teachIndex > 0
+      ? '<button class="btn ghost" type="button" data-act="teach-back">Back</button>'
+      : '<button class="btn ghost" type="button" data-act="intro">Back</button>';
+    var next = last
+      ? '<button class="btn" type="button" data-act="try">I will try it</button>'
+      : '<button class="btn" type="button" data-act="teach-next">Next</button>';
+    stage.innerHTML =
+      coach(step.coach) +
+      '<div class="panel"><p class="meta">' + m.title + " · step " + (state.teachIndex + 1) + " of " + steps.length + "</p>" +
+      step.body +
+      '<div class="actions">' + back + next + "</div></div>";
+  }
+
+  function inputHtml(item) {
+    if (item.input === "fraction") {
+      var neg = state.sign < 0;
+      return (
+        '<div class="frac-in" role="group" aria-label="Your answer">' +
+          '<label class="field"><span>Sign</span><button class="sign-tog' + (neg ? " neg" : "") + '" type="button" data-act="flip" aria-label="Plus or minus">' + (neg ? "−" : "+") + "</button></label>" +
+          '<label class="field"><span>Whole</span><input id="in-whole" type="text" inputmode="numeric" autocomplete="off" aria-label="Whole number"></label>' +
+          '<div class="field"><span>Fraction</span><div class="stack-in">' +
+            '<input id="in-num" type="text" inputmode="numeric" autocomplete="off" aria-label="Top number">' +
+            '<span class="bar"></span>' +
+            '<input id="in-den" type="text" inputmode="numeric" autocomplete="off" aria-label="Bottom number">' +
+          "</div></div>" +
+        "</div>" +
+        "<p class='lede'>A mix, or just a fraction, is fine.</p>"
+      );
+    }
+    if (item.input === "sign") {
+      return (
+        '<div class="signs" role="group" aria-label="Compare signs">' +
+          signBtn("<", "&lt;") + signBtn(">", "&gt;") + signBtn("<=", "≤") + signBtn(">=", "≥") +
+        "</div>"
+      );
+    }
+    if (item.input === "choice") {
+      return '<div class="choices">' + item.choices.map(function (c) {
+        return '<button class="choice" type="button" data-choice="' + escapeHtml(c.value) + '" aria-pressed="' + (state.selected === c.value) + '">' + escapeHtml(c.html) + "</button>";
+      }).join("") + "</div>";
+    }
+    if (item.input === "power") {
+      return (
+        '<div class="frac-in">' +
+          '<input id="in-base" class="wide" type="text" inputmode="numeric" autocomplete="off" aria-label="Base" placeholder="base">' +
+          "<span class='mn'>^</span>" +
+          '<input id="in-exp" type="text" inputmode="numeric" autocomplete="off" aria-label="Little number" placeholder="n">' +
+        "</div>" +
+        '<p class="lede">Or type the value.</p>' +
+        '<input id="in-plain" class="wide" type="text" inputmode="numeric" autocomplete="off" aria-label="Plain number" placeholder="number">'
+      );
+    }
+    return '<p><input id="in-money" class="wide" type="text" inputmode="decimal" autocomplete="off" aria-label="Dollar amount" placeholder="312"></p>';
+  }
+
+  function signBtn(value, label) {
+    return '<button class="sign" type="button" data-choice="' + escapeHtml(value) + '" aria-pressed="' + (state.selected === value) + '">' + label + "</button>";
+  }
+
+  function renderTry() {
+    var m = missionMeta(state.missionId);
+    var row = progress.missions[state.missionId];
+    var item = state.item;
+    var talk = "Your turn. Check when you are ready.";
+    var fb = "";
+    if (state.feedback) {
+      if (state.feedback.result === "correct") talk = "Yes!";
+      else if (state.feedback.result === "almost") talk = "So close.";
+      else if (state.feedback.result === "hint") talk = "One next step.";
+      else if (state.feedback.result === "empty") talk = "I need an answer first.";
+      else talk = "Not yet.";
+      var kind = state.feedback.result === "correct" ? "ok" : state.feedback.result === "almost" ? "almost" : state.feedback.result === "hint" ? "" : "no";
+      if (state.feedback.result !== "hint") {
+        fb = '<p class="fb ' + kind + '" role="status">' + state.feedback.message + "</p>";
+      }
+    }
+    var hint = "";
+    if (state.hintsShown > 0) {
+      hint = '<p class="hint-line" role="status">Hint: ' + E.hintText(item, state.hintsShown - 1) + "</p>";
+    }
+    var model = "";
+    if (state.showModel) {
+      model =
+        '<div class="panel" style="margin-top:0.8rem;background:#fff6d8">' +
+        "<h2>Watch this one</h2>" + item.modelHtml +
+        '<div class="actions one"><button class="btn" type="button" data-act="next">New problem</button></div></div>';
+      talk = "Two tries. Watch the steps. Then a new one.";
+    }
+    var nextBtn = state.feedback && state.feedback.result === "correct"
+      ? '<button class="btn" type="button" data-act="next">Next one</button>'
+      : '<button class="btn ghost" type="button" data-act="hint">Hint</button>';
+    stage.innerHTML =
+      coach(talk) +
+      '<div class="panel">' +
+        '<p class="meta">' + m.title + ' · ' + row.streak + " in a row · need " + E.MASTERY_STREAK + "</p>" +
+        '<p class="stars">' + stars(Math.max(row.stars, row.streak)) + "</p>" +
+        '<p class="prompt">' + item.promptHtml + "</p>" +
+        (state.showModel ? "" : inputHtml(item)) +
+        fb + hint +
+        (state.showModel ? "" : '<div class="actions"><button class="btn" type="button" data-act="check">Check</button>' + nextBtn + "</div>") +
+      "</div>" + model;
+  }
+
+  function renderWin() {
+    var m = missionMeta(state.missionId);
+    var nxt = E.nextMissionId(state.missionId);
+    var nextM = nxt ? missionMeta(nxt) : null;
+    var more = nextM
+      ? '<div class="actions"><button class="btn" type="button" data-open="' + nextM.id + '">Go to ' + nextM.title + '</button><button class="btn ghost" type="button" data-act="home">Home</button></div>'
+      : '<div class="actions one"><button class="btn" type="button" data-act="home">See all missions</button></div>';
+    var line = nextM ? nextM.title + " is open now." : "You finished every mission. You can replay any one.";
+    stage.innerHTML =
+      coach("You did it!") +
+      '<div class="panel win"><p class="burst">★★★★</p><h1>' + m.title + " complete</h1>" +
+      "<p>Four right in a row.</p><p>" + line + "</p>" + more + "</div>";
+  }
+
+  function renderGrownup() {
+    stage.innerHTML =
+      coach("This page is for a grown-up. Kids can skip it.") +
+      '<div class="panel grownup"><h1>Grown-up</h1>' +
+      "<p>A child can run the missions alone. Pip teaches one idea, then checks work. After two misses, a worked model appears and a new twin problem follows.</p>" +
+      "<p>Stars save on this device. Paper practice is extra, not required.</p>" +
+      '<div class="actions stack">' +
+        '<a class="btn" href="print.html">Print practice packet</a>' +
+        '<button class="btn warn" type="button" data-act="reset">Reset stars on this device</button>' +
+        '<button class="btn ghost" type="button" data-act="home">Back to Pip</button>' +
+      "</div>" +
+      '<p class="tiny">Pedagogy adapted from <a href="https://github.com/AlexBarba-x/commons">Dragon Hall Commons</a> (CC BY-SA 4.0). Practice items are original. Not copied from any test worksheet.</p>' +
+      "</div>";
+  }
+
+  function render() {
+    homeBtn.hidden = state.screen === "home";
+    if (state.screen === "home") renderHome();
+    else if (state.screen === "locked") renderLocked();
+    else if (state.screen === "intro") renderIntro();
+    else if (state.screen === "teach") renderTeach();
+    else if (state.screen === "try") renderTry();
+    else if (state.screen === "win") renderWin();
+    else if (state.screen === "grownup") renderGrownup();
+    else renderHome();
+    if (state.screen === "try") restoreDraft();
+    var first = stage.querySelector("input, button.btn, button.mission");
+    if (first && state.screen !== "try") first.focus();
+  }
+
+  stage.addEventListener("click", function (event) {
+    var t = event.target.closest("[data-open], [data-act], [data-choice]");
+    if (!t) return;
+    if (t.dataset.open) {
+      openMission(t.dataset.open);
+      return;
+    }
+    if (t.dataset.choice != null) {
+      state.selected = t.dataset.choice;
+      render();
+      return;
+    }
+    var act = t.dataset.act;
+    if (act === "home") goHome();
+    else if (act === "teach") startTeach();
+    else if (act === "intro") { state.screen = "intro"; render(); }
+    else if (act === "teach-next") { state.teachIndex += 1; render(); }
+    else if (act === "teach-back") { state.teachIndex = Math.max(0, state.teachIndex - 1); render(); }
+    else if (act === "try") startTry();
+    else if (act === "check") onCheck();
+    else if (act === "hint") onHint();
+    else if (act === "next") nextItem();
+    else if (act === "flip") {
+      snapshotDraft();
+      state.sign = state.sign < 0 ? 1 : -1;
+      render();
+    }
+    else if (act === "reset") {
+      progress = E.emptyProgress();
+      save();
+      goHome();
+    }
+  });
+
+  stage.addEventListener("keydown", function (event) {
+    if (event.key === "Enter" && state.screen === "try" && !state.showModel) {
+      if (event.target && event.target.tagName === "INPUT") {
+        event.preventDefault();
+        onCheck();
+      }
+    }
+  });
+
+  homeBtn.addEventListener("click", goHome);
+  document.getElementById("brand-home").addEventListener("click", function (event) {
+    event.preventDefault();
+    goHome();
+  });
+
+  function fromHash() {
+    var id = (location.hash || "#home").replace(/^#/, "") || "home";
+    if (id === "grownup") {
+      state.screen = "grownup";
+      state.missionId = null;
+      render();
+      return;
+    }
+    var parts = id.split("/");
+    var mid = parts[0];
+    if (E.MISSIONS.some(function (m) { return m.id === mid; })) {
+      openMission(mid);
+      if (parts[1] === "try" && E.isUnlocked(progress, mid)) startTry();
+      if (parts[1] === "teach" && E.isUnlocked(progress, mid)) startTeach();
+      return;
+    }
+    state.screen = "home";
+    state.missionId = null;
+    render();
+  }
+
+  window.addEventListener("hashchange", fromHash);
+  fromHash();
 })();
-</script></body></html>
+  </script>
+</body>
+</html>

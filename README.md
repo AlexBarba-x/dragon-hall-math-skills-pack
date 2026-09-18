@@ -1,50 +1,55 @@
 # Dragon Hall Math Skills Pack
 
-A static, kid-friendly site that teaches four math skills with Dragon Hall Commons lesson beats and original practice.
+A **kid-solo** interactive math tutor. A child can open the page, pick a mission, learn one idea at a time, check answers, and unlock the next skill — no grown-up on the main path.
 
 Live site (after GitHub Pages is on):
 
 **https://alexbarba-x.github.io/dragon-hall-math-skills-pack/**
 
-Open `index.html` in a browser if you have cloned the repo. There is no build step.
+`index.html` sends you to **`app.html`**. There is no build step.
 
-## The four lessons
+## How a kid uses it
 
-| Skill | Lesson page | Commons IDs |
+1. Open `app.html` (or the live URL).
+2. Pick a mission. Mission 1 is open. The next one unlocks after 4 correct answers in a row.
+3. Read one short step. Tap **Next**.
+4. Try a problem. Tap **Check**. Use **Hint** for one next scaffold — not the full answer.
+5. After two misses, Pip shows a worked model, then a new twin problem.
+6. Stars save in `localStorage` on that device.
+
+Kid voice: short sentences, large tap targets, plain-language glosses.
+
+## The four missions
+
+| Mission | Skill | Practice shape |
 |---|---|---|
-| Signed mixed-number addition | `lessons/signed-mixed.html` | `DH-MATH-5-NF-A-1-mixed-L001`, `DH-MATH-7-NS-A-1d-L001` |
-| Word sentence → quotient inequality | `lessons/inequality.html` | `DH-MATH-6-EE-A-2-write-L001`, `DH-MATH-6-EE-B-8-L001` |
-| Integer exponent laws | `lessons/exponents.html` | `DH-MATH-8-EE-A-1-L001` |
-| Base pay + percent of sales (two-way) | `lessons/percent-pay.html` | `DH-MATH-7-RP-A-3-L001` |
+| Mix & Minus | Signed mixed-number addition | Convert → common bottom → add → simplify (includes negatives) |
+| Divide & Compare | Quotient → inequality | Compute a division, then write/compare with < > ≤ ≥ |
+| Power Moves | Exponent laws | Product, quotient, and power rules, plus a zero exponent |
+| Pay Day | Base pay + percent of sales | Name the base; earnings both ways |
 
-Practice pages live under `practice/`. The combined packet is `print.html`.
+Items are **original isomorphic practice**. They are not copied from any commercial worksheet.
 
-## How a parent runs a session
+## Paper practice (optional)
 
-1. Sit together. You are the teacher. The learner writes on paper.
-2. Open one lesson. Read the gold **Say** lines aloud. Pause for the green **Do** step.
-3. Listen for the peach line. If it is missing, use the purple hint and stay on that beat.
-4. Do the on-screen check (one or two items). Keep the “Adult only” reveal closed unless you need it.
-5. Print `print.html` (or the single-skill practice page). **Tear off the last sheet** marked “Adult only — keep separate.”
-6. The adult grades. Do not hand the key to the learner. A shaky check means reteach, not a lower bar.
+`print.html` is still a printable packet with an adult-only last page. Old static lesson pages remain under `lessons/` for reference. They are not the default path.
 
-KaTeX and the fonts load from a CDN when you are online. The pages still read without them.
+## Grown-up corner
+
+A tiny **Grown-up** link on the home screen can reset stars, open the print packet, and explain the design. Keep that page off the kid path.
+
+## Tests
+
+```bash
+node tests/tutor-engine.test.js
+```
 
 ## Turn on GitHub Pages
 
-If the live URL above 404s, a repo admin needs this one Settings click:
-
-1. Open the repository on GitHub.
-2. **Settings → Pages**.
-3. Under **Build and deployment**, set **Source** to **Deploy from a branch**.
-4. Set **Branch** to `main` and the folder to `/ (root)`.
-5. Save. Wait one or two minutes, then visit  
-   `https://alexbarba-x.github.io/dragon-hall-math-skills-pack/`.
-
-This repo already has `index.html` at the root and a `.nojekyll` file.
+1. Repository **Settings → Pages**
+2. **Deploy from a branch** → `main` / `/(root)`
+3. Visit `https://alexbarba-x.github.io/dragon-hall-math-skills-pack/`
 
 ## Attribution
 
-Pedagogy adapted from [Dragon Hall Commons](https://github.com/AlexBarba-x/commons) (CC BY-SA 4.0), `AlexBarba-x/commons`. Voice and examples were reshaped for a web sitting (see Commons `docs/RESHAPING-GUIDE.md`). Original isomorphic practice in this pack is also CC BY-SA 4.0.
-
-This site does not copy commercial test-prep items, choices, or branding.
+Pedagogy adapted from [Dragon Hall Commons](https://github.com/AlexBarba-x/commons) (CC BY-SA 4.0). Voice and interactive items were rewritten so a child can learn by doing. This site does not copy commercial test-prep items, choices, or branding.
