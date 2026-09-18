@@ -12,17 +12,17 @@
   header.innerHTML = `
     <a class="skip" href="#main">Skip to lesson</a>
     <div class="bar">
-      <a class="brand" href="${prefix}index.html">
+      <a class="brand" href="${prefix}app.html">
         <img src="${prefix}img/mark.svg" alt="" width="48" height="48">
         <span>
           <strong>Dragon Hall Math</strong>
-          <span>Skills pack for one learner</span>
+          <span>Kid-solo tutor + paper practice</span>
         </span>
       </a>
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
     </div>
     <nav class="site-nav" id="site-nav">
-      <a href="${prefix}index.html"${mark(page === "home")}>Home</a>
+      <a href="${prefix}app.html"${mark(page === "home")}>Tutor</a>
       <a href="${prefix}lessons/signed-mixed.html"${mark(page === "signed")}>Signed mixed</a>
       <a href="${prefix}lessons/inequality.html"${mark(page === "ineq")}>Inequalities</a>
       <a href="${prefix}lessons/exponents.html"${mark(page === "exp")}>Exponents</a>

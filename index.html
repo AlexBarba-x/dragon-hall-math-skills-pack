@@ -1,42 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Dragon Hall Math — Start Learning</title>
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{
-  min-height:100vh;display:flex;align-items:center;justify-content:center;
-  font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  background:linear-gradient(160deg,#0f172a 0%,#1e1b4b 55%,#0f172a 100%);
-  color:#f1f5f9;padding:24px;text-align:center
-}
-.card{
-  background:#1e293b;border:2px solid #334155;border-radius:24px;
-  padding:36px 28px;max-width:420px;width:100%;
-  box-shadow:0 20px 50px rgba(0,0,0,.45)
-}
-.dragon{font-size:64px;margin-bottom:8px}
-h1{font-size:1.5rem;margin-bottom:8px;color:#e9d5ff}
-p{color:#94a3b8;margin-bottom:24px;line-height:1.5}
-a.start{
-  display:inline-flex;align-items:center;justify-content:center;
-  min-height:64px;padding:16px 36px;border-radius:18px;
-  background:#22d3ee;color:#0f172a;font-size:1.35rem;font-weight:800;
-  text-decoration:none;width:100%;max-width:320px
-}
-a.start:active{transform:scale(.98)}
-.note{margin-top:18px;font-size:.8rem;color:#64748b}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Pip’s Math Missions · Dragon Hall</title>
+  <meta name="description" content="A kid-solo dragon tutor for mixed numbers, inequalities, exponents, and percent pay.">
+  <link rel="icon" href="img/mark.svg" type="image/svg+xml">
+  <link rel="canonical" href="app.html">
+  <meta http-equiv="refresh" content="0; url=app.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&family=Nunito:wght@700;800&display=swap" rel="stylesheet">
+  <style>
+    :root { --forest:#0d3b2e; --gold:#e8c547; --cream:#f7f1e3; }
+    html, body { margin: 0; min-height: 100%; background: var(--cream); color: var(--forest); font-family: Nunito, system-ui, sans-serif; }
+    main { max-width: 28rem; margin: 0 auto; padding: 2.5rem 1.2rem; text-align: center; }
+    h1 { font-family: Fraunces, Georgia, serif; font-size: 2rem; }
+    a.btn {
+      display: inline-block; margin-top: 1rem; background: var(--forest); color: var(--gold);
+      text-decoration: none; font-weight: 800; padding: 0.9rem 1.4rem; border-radius: 999px; min-height: 3.2rem;
+    }
+    .tiny { margin-top: 2rem; font-size: 0.85rem; }
+    .tiny a { color: var(--forest); }
+  </style>
+  <script>location.replace("app.html" + location.hash);</script>
 </head>
 <body>
-  <div class="card">
-    <div class="dragon" aria-hidden="true">🐉</div>
-    <h1>Dragon Hall Math</h1>
-    <p>Kid-solo interactive tutor. You can do this alone — tap below to begin.</p>
-    <a class="start" href="app.html">Start Learning</a>
-    <p class="note">Works offline after load. Stars save on this device.</p>
-  </div>
+  <main>
+    <h1>Pip is ready.</h1>
+    <p>This is a kid-solo math tutor. No grown-up needed on the main path.</p>
+    <p><a class="btn" href="app.html">Open the dragon tutor</a></p>
+    <p class="tiny"><a href="print.html">Printable practice</a> · <a href="app.html#grownup">Grown-up</a></p>
+  </main>
 </body>
 </html>
