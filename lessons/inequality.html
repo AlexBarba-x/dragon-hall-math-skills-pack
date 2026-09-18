@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Words to an inequality · Dragon Hall</title>
+  <link rel="icon" href="../img/mark.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body data-prefix="../" data-page="ineq">
+  <main id="main" class="wrap">
+    <p class="kicker">Lesson 2 of 4</p>
+    <h1>Words to an inequality</h1>
+    <p class="lede">You will turn a sentence about a quotient into an inequality, with the numbers in the right order.</p>
+
+    <section class="goal">
+      <h2>Goal</h2>
+      <p>Write the quotient the correct way around. Choose the sign that matches <em>less than</em> (not “at most”). Read the symbols back into words as a check.</p>
+    </section>
+
+    <section class="cite">
+      <p><strong>Commons lessons cited:</strong>
+        <code>DH-MATH-6-EE-A-2-write-L001</code> (Writing Expressions from Words) and
+        <code>DH-MATH-6-EE-B-8-L001</code> (Inequalities on the Number Line).
+        Concept checks: <code>DH-MATH-6-EE-A-2-write-CC</code>, <code>DH-MATH-6-EE-B-8-CC</code>.</p>
+    </section>
+
+    <section class="beat">
+      <p class="phase">Concrete · the letter is a length</p>
+      <p class="say"><b>Say</b> This strip is \(n\). We do not know its length, so we give it a name. An expression is a record of what we did to \(n\).</p>
+      <p class="do"><b>Do</b> Imagine cutting the \(n\) strip into 5 equal pieces. That record is the quotient of \(n\) and 5.</p>
+      <p class="listen"><b>Listen for</b> \(n\) is the amount being cut, so \(n\) goes on top: \(\dfrac{n}{5}\).</p>
+    </section>
+
+    <section class="beat">
+      <p class="phase">Pictorial · two traps</p>
+      <p class="say"><b>Say</b> Division has a trap. “The quotient of \(t\) and 3.” Which number gets divided up? That one goes on top. “Divide 12 by \(k\)” puts 12 on top.</p>
+      <p class="do"><b>Do</b> Write both: the quotient of \(t\) and 3, and divide 12 by \(k\).</p>
+      <p class="listen"><b>Listen for</b> \(\dfrac{t}{3}\) and \(\dfrac{12}{k}\). Wrong answers to catch: \(\dfrac{3}{t}\) and \(\dfrac{k}{12}\).</p>
+      <p class="say"><b>Say</b> Now the inequality words. “Less than 8” is a strict door. 8 itself is left out. We write \(\lt 8\), not \(\le 8\).</p>
+      <p class="do"><b>Do</b> Test the boundary. Is 8 less than 8?</p>
+      <p class="listen"><b>Listen for</b> No. So the boundary is not a solution.</p>
+    </section>
+
+    <section class="beat">
+      <p class="phase">Abstract · read it back</p>
+      <p class="say"><b>Say</b> Put the two moves together. “The quotient of a number \(n\) and 5 is less than 8.” Write it, then read it back.</p>
+      <p class="do"><b>Do</b> Write the inequality, then say it in words.</p>
+      <p class="listen"><b>Listen for</b> \(\dfrac{n}{5} \lt 8\). Read-back: “\(n\) split into 5 parts is less than 8.” That matches. \(\dfrac{5}{n} \lt 8\) would mean 5 is the amount being cut.</p>
+    </section>
+
+    <section class="example">
+      <h2>Worked example</h2>
+      <p>Write an inequality: the quotient of a number \(n\) and 5 is less than 8.</p>
+      <ol class="steps">
+        <li>Quotient of \(n\) and 5 means \(n\) is divided: \(\dfrac{n}{5}\).</li>
+        <li>“Less than 8” is strict: \(\lt 8\).</li>
+        <li>Together: \(\dfrac{n}{5} \lt 8\).</li>
+        <li>Read back. The words match, so the order is right.</li>
+      </ol>
+    </section>
+
+    <section class="check">
+      <h2>Interactive check</h2>
+
+      <form class="check-item" data-check data-accept='["w/6<4","w/6 < 4"]'>
+        <p class="prompt">1. “The quotient of a number \(w\) and 6 is less than 4.” Which inequality is right?</p>
+        <div class="choices">
+          <label><input type="radio" name="answer" value="6/w<4"> \(\dfrac{6}{w} \lt 4\)</label>
+          <label><input type="radio" name="answer" value="w/6<4"> \(\dfrac{w}{6} \lt 4\)</label>
+          <label><input type="radio" name="answer" value="w/6<=4"> \(\dfrac{w}{6} \le 4\)</label>
+          <label><input type="radio" name="answer" value="w-6<4"> \(w - 6 \lt 4\)</label>
+        </div>
+        <p><button class="btn" type="submit">Check</button></p>
+        <p class="feedback" role="status"></p>
+      </form>
+
+      <form class="check-item" data-check data-accept='["12/k<3"]'>
+        <p class="prompt">2. “The quotient of 12 and a number \(k\) is less than 3.” Type the inequality.</p>
+        <input type="text" name="answer" aria-label="Answer to problem 2" placeholder="example: n/5 < 8" autocomplete="off">
+        <p><button class="btn" type="submit">Check</button></p>
+        <p class="feedback" role="status"></p>
+      </form>
+
+      <div class="adult">
+        <details>
+          <summary>Adult only — reveal keys</summary>
+          <div class="key">
+            <p><strong>1.</strong> \(\dfrac{w}{6} \lt 4\). \(w\) is being cut. “Less than” is not “at most.”</p>
+            <p><strong>2.</strong> \(\dfrac{12}{k} \lt 3\). 12 is the amount being divided.</p>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <section class="next-row">
+      <a class="btn ghost" href="../practice/inequality.html">Paper practice</a>
+      <a class="btn" href="exponents.html">Next lesson</a>
+    </section>
+  </main>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <script src="../js/app.js"></script>
+</body>
+</html>

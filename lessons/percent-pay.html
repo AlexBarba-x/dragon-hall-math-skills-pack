@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Base pay and percent of sales · Dragon Hall</title>
+  <link rel="icon" href="../img/mark.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body data-prefix="../" data-page="pay">
+  <main id="main" class="wrap">
+    <p class="kicker">Lesson 4 of 4</p>
+    <h1>Base pay and percent of sales</h1>
+    <p class="lede">You will find earnings from sales, and sales from earnings, when pay is a fixed amount plus a percent of sales.</p>
+
+    <section class="goal">
+      <h2>Goal</h2>
+      <p>Reduce the job to \(\text{part} = \dfrac{p}{100} \times \text{base}\). Name the base of the percent every time. Then solve both directions.</p>
+    </section>
+
+    <section class="cite">
+      <p><strong>Commons lesson cited:</strong>
+        <code>DH-MATH-7-RP-A-3-L001</code> (One Principle for Every Percent).
+        Concept check: <code>DH-MATH-7-RP-A-3-CC</code>.</p>
+    </section>
+
+    <section class="beat">
+      <p class="phase">Concrete · name the base first</p>
+      <p class="say"><b>Say</b> Before you compute anything, ask the question every percent problem turns on: percent of <em>what</em>? A percent is a rate. \(p\%\) means \(p\) out of every 100, the number \(\dfrac{p}{100}\).</p>
+      <p class="do"><b>Do</b> Place a paper tag that says BASE on the amount the percent acts on. In “$280 plus 5% of sales,” the percent acts on sales, not on the $280.</p>
+      <p class="listen"><b>Listen for</b> Base of the 5% is the sales amount. Base pay is a separate addend.</p>
+    </section>
+
+    <section class="beat">
+      <p class="phase">Pictorial · write the equation</p>
+      <p class="say"><b>Say</b> Earnings = base pay + rate × sales. That is \(E = 280 + 0.05S\). The 0.05 is 5% written as a rate.</p>
+      <p class="do"><b>Do</b> If Saturday sales are $640, compute the commission first, then add the base pay.</p>
+      <p class="listen"><b>Listen for</b> \(0.05 \times 640 = 32\), then \(280 + 32 = 312\). Earnings are $312.</p>
+    </section>
+
+    <section class="beat">
+      <p class="phase">Abstract · the unknown is the base</p>
+      <p class="say"><b>Say</b> When the unknown is the sales, the same equation becomes something to solve. Nothing new is invented. Part = rate × base, with sales as the base.</p>
+      <p class="do"><b>Do</b> Maya earned $400. \(280 + 0.05S = 400\). Find \(S\).</p>
+      <p class="listen"><b>Listen for</b> \(0.05S = 120\), so \(S = 2400\). Sales were $2,400. Listen for the equation before the answer.</p>
+      <p class="hint"><b>If stuck</b> Undo the base pay first. What remains is the percent piece. Then divide by the rate, not by 5.</p>
+    </section>
+
+    <section class="example">
+      <h2>Worked example</h2>
+      <p>Maya earns $280 plus 5% of her sales.</p>
+      <ol class="steps">
+        <li>Name the base: the percent acts on sales \(S\). Equation: \(E = 280 + 0.05S\).</li>
+        <li>Given sales $640: \(E = 280 + 0.05 \times 640 = 280 + 32 = 312\).</li>
+        <li>Given earnings $400: \(280 + 0.05S = 400\), so \(0.05S = 120\), \(S = 2400\).</li>
+      </ol>
+    </section>
+
+    <section class="check">
+      <h2>Interactive check</h2>
+      <p>Same job in both items: $350 plus 8% of sales.</p>
+
+      <form class="check-item" data-check data-accept='["450","450.00"]'>
+        <p class="prompt">1. Sales are $1,250. What are the earnings, in dollars?</p>
+        <input type="text" name="answer" aria-label="Answer to problem 1" placeholder="example: 312" autocomplete="off">
+        <p><button class="btn" type="submit">Check</button></p>
+        <p class="feedback" role="status"></p>
+      </form>
+
+      <form class="check-item" data-check data-accept='["2000","2,000","2000.00"]'>
+        <p class="prompt">2. Earnings are $510. What were the sales, in dollars?</p>
+        <input type="text" name="answer" aria-label="Answer to problem 2" placeholder="example: 2400" autocomplete="off">
+        <p><button class="btn" type="submit">Check</button></p>
+        <p class="feedback" role="status"></p>
+      </form>
+
+      <div class="adult">
+        <details>
+          <summary>Adult only — reveal keys</summary>
+          <div class="key">
+            <p><strong>1.</strong> \(350 + 0.08 \times 1250 = 350 + 100 = 450\).</p>
+            <p><strong>2.</strong> \(350 + 0.08S = 510\), so \(0.08S = 160\), \(S = 2000\).</p>
+            <p>Catch: treating 8% as ×8, or taking 8% of the $350 instead of sales.</p>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <section class="next-row">
+      <a class="btn ghost" href="../practice/percent-pay.html">Paper practice</a>
+      <a class="btn" href="../print.html">Print full packet</a>
+    </section>
+  </main>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <script src="../js/app.js"></script>
+</body>
+</html>

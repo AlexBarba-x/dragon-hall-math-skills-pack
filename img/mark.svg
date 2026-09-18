@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" role="img" aria-labelledby="title">
+  <title id="title">Dragon Hall mark</title>
+  <circle cx="48" cy="48" r="45" fill="#0d3b2e"/>
+  <circle cx="48" cy="48" r="40" fill="none" stroke="#e8c547" stroke-width="2.4"/>
+  <path d="M22 58c6-16 16-26 30-28 4 8 10 14 20 16-8 6-12 16-10 26-10-4-22-4-32-2 2-6 0-10-8-12z" fill="#1a5c45"/>
+  <path d="M28 50c8-12 18-18 28-18 2 6 8 11 16 13-8 4-10 12-8 20-8-3-18-3-26-1" fill="#e8c547"/>
+  <path d="M40 42c6-2 12 0 14 6" fill="none" stroke="#0d3b2e" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="58" cy="44" r="2.2" fill="#0d3b2e"/>
+  <path d="M62 38l10-6-2 10" fill="#c9a227"/>
+</svg>
