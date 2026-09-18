@@ -1,85 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Dragon Hall Math Skills Pack</title>
-  <meta name="description" content="Four kid-friendly math lessons with printable practice: signed mixed numbers, inequalities, exponents, and percent pay.">
-  <link rel="icon" href="img/mark.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dragon Hall Math — Start Learning</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  background:linear-gradient(160deg,#0f172a 0%,#1e1b4b 55%,#0f172a 100%);
+  color:#f1f5f9;padding:24px;text-align:center
+}
+.card{
+  background:#1e293b;border:2px solid #334155;border-radius:24px;
+  padding:36px 28px;max-width:420px;width:100%;
+  box-shadow:0 20px 50px rgba(0,0,0,.45)
+}
+.dragon{font-size:64px;margin-bottom:8px}
+h1{font-size:1.5rem;margin-bottom:8px;color:#e9d5ff}
+p{color:#94a3b8;margin-bottom:24px;line-height:1.5}
+a.start{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-height:64px;padding:16px 36px;border-radius:18px;
+  background:#22d3ee;color:#0f172a;font-size:1.35rem;font-weight:800;
+  text-decoration:none;width:100%;max-width:320px
+}
+a.start:active{transform:scale(.98)}
+.note{margin-top:18px;font-size:.8rem;color:#64748b}
+</style>
 </head>
-<body data-prefix="" data-page="home">
-  <main id="main" class="wrap">
-    <section class="hero">
-      <div>
-        <p class="kicker">A kitchen-table hall</p>
-        <h1>Four math skills, taught like a real lesson.</h1>
-        <p class="lede">This pack is for one learner and one grown-up. Each lesson follows Dragon Hall Commons beats: say the move, do the move, listen for the right idea. Practice is original. The adult keeps the answer key.</p>
-        <div class="pill-row">
-          <a class="pill" href="print.html">Print practice packet</a>
-          <a class="pill" href="#lessons">Open a lesson</a>
-        </div>
-      </div>
-      <aside class="hero-art" aria-label="How a sitting works">
-        <h2 style="color:#e8c547;font-size:1.35rem;">How a sitting works</h2>
-        <p>1. Grown-up reads the gold <b>Say</b> lines aloud.</p>
-        <p>2. Learner does the green <b>Do</b> step on paper.</p>
-        <p>3. Grown-up listens for the peach line, then hides the key.</p>
-        <p>4. One short check on screen. Paper practice last.</p>
-      </aside>
-    </section>
-
-    <section id="lessons">
-      <h2>Choose a skill</h2>
-      <div class="card-grid">
-        <a class="card" href="lessons/signed-mixed.html">
-          <span class="num">1</span>
-          <h2>Signed mixed numbers</h2>
-          <p>Add a negative mixed number to a positive one. Convert the parts, keep every sign glued to its number, then add.</p>
-          <p class="ids">DH-MATH-5-NF-A-1-mixed-L001 · DH-MATH-7-NS-A-1d-L001</p>
-        </a>
-        <a class="card" href="lessons/inequality.html">
-          <span class="num">2</span>
-          <h2>Words to an inequality</h2>
-          <p>Turn a sentence about a quotient into an inequality. Watch the “who gets divided” trap and the word <em>less than</em>.</p>
-          <p class="ids">DH-MATH-6-EE-A-2-write-L001 · DH-MATH-6-EE-B-8-L001</p>
-        </a>
-        <a class="card" href="lessons/exponents.html">
-          <span class="num">3</span>
-          <h2>Integer exponent laws</h2>
-          <p>Count factors to multiply and divide powers of the same base. A zero exponent is 1, because the product law says so.</p>
-          <p class="ids">DH-MATH-8-EE-A-1-L001</p>
-        </a>
-        <a class="card" href="lessons/percent-pay.html">
-          <span class="num">4</span>
-          <h2>Base pay and percent of sales</h2>
-          <p>Name the base. Earnings = base pay + rate × sales. Work both ways: sales to pay, and pay back to sales.</p>
-          <p class="ids">DH-MATH-7-RP-A-3-L001</p>
-        </a>
-      </div>
-    </section>
-
-    <section class="session" style="margin-top:2rem;">
-      <article class="panel">
-        <h2>For the grown-up</h2>
-        <p>You are the teacher in the room. Confirm every grade. Do not leave the adult reveal open on the table. If a check is shaky, stop and reteach the beat that slipped. Do not lower the bar.</p>
-        <p><a href="print.html">Print the combined packet</a> with the key on its own page. Tear that page off before the learner sits down.</p>
-      </article>
-      <article class="panel">
-        <h2>What this is not</h2>
-        <p>This is not a copy of any test booklet. The skills match a worksheet shape. The numbers, stories, and choices are original Dragon Hall practice.</p>
-        <p>Paper practice lives here:
-          <a href="practice/signed-mixed.html">mixed</a> ·
-          <a href="practice/inequality.html">inequalities</a> ·
-          <a href="practice/exponents.html">exponents</a> ·
-          <a href="practice/percent-pay.html">percent pay</a>.
-        </p>
-      </article>
-    </section>
-  </main>
-  <script src="js/app.js"></script>
+<body>
+  <div class="card">
+    <div class="dragon" aria-hidden="true">🐉</div>
+    <h1>Dragon Hall Math</h1>
+    <p>Kid-solo interactive tutor. You can do this alone — tap below to begin.</p>
+    <a class="start" href="app.html">Start Learning</a>
+    <p class="note">Works offline after load. Stars save on this device.</p>
+  </div>
 </body>
 </html>
