@@ -1,27 +1,145 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <title>Dragon Coach — Solo Math Missions</title>
-<!-- kid-solo interactive tutor: mission localStorage Check Hint mastery -->
-</head>
-<body>
-<p id="boot" style="font-family:system-ui;text-align:center;margin-top:2rem;color:#334155">Loading Dragon Coach…</p>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,sans-serif;background:linear-gradient(160deg,#0f172a,#1e1b4b 50%,#0f172a);color:#f1f5f9;padding:12px 12px 40px;max-width:720px;margin:0 auto;min-height:100vh}
+button,input{font:inherit;touch-action:manipulation}
+.hero{text-align:center;padding:20px 8px 8px}
+.dragon{font-size:72px;animation:b 2.5s ease-in-out infinite}
+@keyframes b{50%{transform:translateY(-8px)}}
+h1{font-size:1.6rem;margin:8px 0 4px;color:#e9d5ff}
+.tag{color:#22d3ee;font-size:1.15rem;font-weight:700}
+.sub{color:#94a3b8;margin:6px 0 18px}
+.card{background:#1e293b;border:2px solid #334155;border-radius:18px;padding:18px 16px;display:flex;align-items:center;gap:14px;cursor:pointer;min-height:88px;width:100%;color:inherit;text-align:left;margin-bottom:14px}
+.card.done{border-color:#4ade80}
+.card:active{transform:scale(.98)}
+.me{font-size:2.4rem}
+.mt{font-weight:800;font-size:1.15rem}
+.md{color:#94a3b8;font-size:.88rem}
+.stars{font-size:1.4rem;margin-left:auto}
+.stars .e{opacity:.25}
+.bar{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.back{background:#334155;border:0;color:#f1f5f9;border-radius:12px;min-width:56px;min-height:56px;font-weight:700}
+.prog{flex:1;background:#0f172a;border-radius:99px;height:14px;border:1px solid #334155;overflow:hidden}
+.pfill{height:100%;background:linear-gradient(90deg,#a78bfa,#22d3ee);width:0;transition:width .35s}
+.panel{background:#1e293b;border-radius:20px;padding:22px 18px;border:1px solid #334155;min-height:260px}
+.panel h2{color:#c4b5fd;margin-bottom:10px}
+.idea{background:#312e81;border-left:4px solid #a78bfa;padding:14px 16px;border-radius:0 14px 14px 0;font-weight:600;margin:14px 0}
+.ex{background:#0f172a;border:2px dashed #22d3ee;border-radius:14px;padding:16px;margin:12px 0;line-height:1.6}
+.q{font-size:1.35rem;font-weight:700;text-align:center;margin:16px 0 20px}
+.row{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:12px 0}
+.in{font-size:1.4rem;padding:14px 16px;border-radius:14px;border:3px solid #334155;background:#0f172a;color:#f1f5f9;min-width:140px;text-align:center;min-height:56px}
+.ch{background:#334155;border:3px solid transparent;border-radius:16px;padding:16px;min-height:56px;font-size:1.15rem;font-weight:600;color:#f1f5f9;width:100%;margin-bottom:10px}
+.ch.sel{border-color:#22d3ee;background:#164e63}
+.btns{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:16px}
+.btn{border:0;border-radius:16px;min-height:56px;padding:14px 28px;font-size:1.15rem;font-weight:800;cursor:pointer;color:#0f172a}
+.bp{background:#22d3ee}.bg{background:#4ade80}.bw{background:#fbbf24}
+.fb{margin-top:14px;padding:14px;border-radius:14px;font-weight:600;text-align:center}
+.ok{background:#14532d;color:#bbf7d0}.no{background:#7f1d1d;color:#fecaca}
+.hi{background:#78350f;color:#fde68a;text-align:left;font-weight:500}
+.so{background:#1e3a5f;color:#bae6fd;text-align:left;font-weight:500}
+.st{text-align:center;color:#94a3b8;margin-top:8px}
+.conf{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:99}
+.cf{position:absolute;width:10px;height:14px;top:-20px;animation:f linear forwards;border-radius:2px}
+@keyframes f{to{transform:translateY(110vh) rotate(720deg);opacity:.3}}
+.cel{text-align:center;padding:28px 16px}.cel h2{color:#4ade80;font-size:1.6rem}
+.fn{text-align:center;color:#94a3b8;font-size:.75rem;margin-top:24px;opacity:.7}
+</style></head><body>
+<div id="app"></div><div class="conf" id="confetti"></div>
 <script>
-(async function(){
-  const b64="PLACEHOLDER";
-  try {
-    const bin=Uint8Array.from(atob(b64),c=>c.charCodeAt(0));
-    const ds=new DecompressionStream("deflate-raw");
-    const html=await new Response(new Blob([bin]).stream().pipeThrough(ds)).text();
-    document.open(); document.write(html); document.close();
-  } catch (e) {
-    document.getElementById("boot").textContent="Could not start. Open in Chrome, Edge, Firefox, or Safari.";
-    console.error(e);
-  }
+(function(){
+const K="dragonCoachStars_v1",N=3;
+const load=()=>{try{return JSON.parse(localStorage.getItem(K))||{A:0,B:0,C:0,D:0}}catch(e){return{A:0,B:0,C:0,D:0}}};
+const save=s=>localStorage.setItem(K,JSON.stringify(s));
+const starsH=n=>{n=Math.min(3,n|0);let o="";for(let i=0;i<3;i++)o+=i<n?"⭐":"<span class='e'>⭐</span>";return o};
+const rnd=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
+const pick=a=>a[rnd(0,a.length-1)];
+const gcd=(a,b)=>{a=Math.abs(a);b=Math.abs(b);while(b){const t=b;b=a%b;a=t}return a||1};
+const simp=(n,d)=>{if(d<0){n=-n;d=-d}const g=gcd(n,d);return[n/g,d/g]};
+function mixOk(u,e){u=String(u).trim().toLowerCase().replace(/−/g,"-").replace(/\s+/g," ");e=String(e).trim().toLowerCase().replace(/−/g,"-").replace(/\s+/g," ");if(u===e)return true;const p=s=>{s=s.replace(/\$/g,"").trim();if(s==="0")return 0;let sg=1;if(s[0]==="-"){sg=-1;s=s.slice(1).trim()}let m=s.match(/^(\d+)\s+(\d+)\s*\/\s*(\d+)$/);if(m)return sg*(+m[1]+(+m[2])/(+m[3]));m=s.match(/^(\d+)\s*\/\s*(\d+)$/);if(m)return sg*((+m[1])/(+m[2]));m=s.match(/^(\d+)$/);if(m)return sg*(+m[1]);m=s.match(/^(\d+\.\d+)$/);if(m)return sg*parseFloat(s);return null};const a=p(u),b=p(e);return a!=null&&b!=null&&Math.abs(a-b)<1e-6}
+function moneyOk(u,e){u=String(u).trim().replace(/[$,\s]/g,"");e=String(e).trim().replace(/\$/g,"");if(u===e)return true;const a=parseFloat(u),b=parseFloat(e);return!isNaN(a)&&!isNaN(b)&&Math.abs(a-b)<.01}
+
+const M={
+A:{id:"A",emoji:"🧮",title:"Signed Mixed Numbers",desc:"Add mixed numbers — watch the signs!",
+teach:`<p>Turn mixed numbers into <strong>improper fractions</strong>, then add the tops over the same bottom.</p><div class="idea">Same denominator → add numerators. Keep each sign.</div>`,
+ex:["Look: −1 1/4 + 2 3/4","Improper: −5/4 + 11/4","Add tops: (−5+11)/4 = 6/4","Simplify → 1 1/2"],
+gen(){const d=pick([2,3,4,5,6,8]),aW=pick([-2,-1,1,2]),bW=pick([-2,-1,0,1,2]),aN=rnd(1,d-1),bN=rnd(0,d-1);
+const aImp=aW<0?-(Math.abs(aW)*d+aN):(aW*d+aN);let bImp,bD;
+if(bN===0){bImp=bW;bD=String(bW)}else if(bW===0){bImp=Math.random()<.5?bN:-bN;bD=(bImp<0?"−":"")+bN+"/"+d}else{bImp=bW<0?-(Math.abs(bW)*d+bN):(bW*d+bN);bD=(bW<0?"−":"")+Math.abs(bW)+" "+bN+"/"+d}
+const aD=(aW<0?"−":"")+Math.abs(aW)+" "+aN+"/"+d,sum=aImp+bImp;
+const fmt=imp=>{if(!imp)return"0";let[nn,dd]=simp(imp,d);const sg=nn<0?-1:1,abs=Math.abs(nn),w=Math.floor(abs/dd),r=abs%dd;if(!r)return String(sg*w);if(!w)return(sg<0?"-":"")+r+"/"+dd;return(sg<0?"-":"")+w+" "+r+"/"+dd};
+const ans=fmt(sum);
+return{prompt:"What is "+aD+" + ("+bD+") ?",type:"input",ok:mixOk,answer:ans,hint:"Make improper fractions with /"+d+", then add tops.",solution:"Worked: "+aD+" = "+aImp+"/"+d+". "+bD+" = "+bImp+"/"+d+". Sum → "+ans}}},
+B:{id:"B",emoji:"⚖️",title:"Quotient → Inequality",desc:"Divide, then pick the right inequality.",
+teach:`<p>Find the <strong>quotient</strong>, then choose the true inequality.</p><div class="idea">Divide → compare: bigger, smaller, or equal?</div>`,
+ex:["18 ÷ 4 vs 5","Quotient = 4.5","4.5 < 5? Yes!","True: 18÷4 < 5"],
+gen(){const b=pick([2,3,4,5,6,8]),qw=rnd(2,9),rem=rnd(1,b-1),a=qw*b+rem,q=a/b,c=pick([qw,qw+1,qw+2,Math.floor(q),Math.ceil(q)].filter((v,i,x)=>x.indexOf(v)===i));
+let op;if(Math.abs(q-c)<1e-9)op="=";else if(q<c)op="<";else op=">";
+const ch=["<",">","="].map(o=>({text:a+" ÷ "+b+" "+o+" "+c,ok:o===op}));
+for(let i=ch.length-1;i>0;i--){const j=rnd(0,i);[ch[i],ch[j]]=[ch[j],ch[i]]}
+return{prompt:"Pick the true inequality. First find "+a+" ÷ "+b+".",type:"choice",choices:ch,hint:"Compute "+a+"÷"+b+" ≈ "+(Math.round(q*100)/100)+", compare to "+c+".",solution:a+"÷"+b+"="+q+". True op is "+op}}},
+C:{id:"C",emoji:"⚡",title:"Exponent Laws",desc:"Multiply & divide powers — add or subtract exponents.",
+teach:`<p>Same base?</p><div class="idea">a<sup>m</sup>·a<sup>n</sup>=a<sup>m+n</sup><br>a<sup>m</sup>÷a<sup>n</sup>=a<sup>m−n</sup></div>`,
+ex:["3⁴ · 3²","Add exponents: 4+2=6","Answer: 3⁶","5⁷÷5³ → 5⁴"],
+gen(){const base=pick([2,3,4,5,6,7,8,10]),mul=Math.random()<.5;let e1,e2,ans,p,h,s;
+if(mul){e1=rnd(2,8);e2=rnd(2,6);ans=e1+e2;p="Simplify: "+base+"^"+e1+" × "+base+"^"+e2;h="ADD exponents: "+e1+"+"+e2;s=base+"^"+ans}
+else{e1=rnd(5,12);e2=rnd(2,e1-1);ans=e1-e2;p="Simplify: "+base+"^"+e1+" ÷ "+base+"^"+e2;h="SUBTRACT: "+e1+"−"+e2;s=base+"^"+ans}
+const correct=base+"^"+ans;let opts=[correct,base+"^"+(e1*e2),base+"^"+Math.abs(e1-e2),base+"^"+(ans+1)];
+opts=[...new Set(opts)].slice(0,4);if(!opts.includes(correct))opts[0]=correct;
+for(let i=opts.length-1;i>0;i--){const j=rnd(0,i);[opts[i],opts[j]]=[opts[j],opts[i]]}
+return{prompt:p,type:"choice",choices:opts.map(t=>({text:t,ok:t===correct})),hint:h,solution:"Worked → "+s}}},
+D:{id:"D",emoji:"💵",title:"Base Pay + % Sales",desc:"Earn a base wage plus a percent of sales.",
+teach:`<p>Total = <strong>base</strong> + <strong>% of sales</strong>.</p><div class="idea">(percent÷100)×sales, then add base.</div>`,
+ex:["Base $200, sales $800, 5%","0.05×800=$40","Total $240"],
+gen(){const base=pick([150,200,250,300,400,500]),sales=pick([400,500,600,800,1000,1200]),pct=pick([2,3,4,5,6,8,10]),tot=Math.round(base+sales*pct/100);
+return{prompt:"Base $"+base+". Sales $"+sales+". Commission "+pct+"%. Total pay?",type:"input",ok:moneyOk,answer:String(tot),prefix:"$",hint:pct+"% of $"+sales+", then add $"+base+".",solution:"Worked: commission="+(sales*pct/100)+". Total=$"+tot}}}
+};
+
+let stars=load(),screen="home",mid=null,phase="teach",exI=0,item=null,fails=0,streak=0,pc=0,sel=null,fb=null,showH=false,showS=false;
+const el=document.getElementById("app");
+const pct=()=>phase==="teach"?8:phase==="example"?20+exI*10:phase==="practice"?Math.min(85,35+streak*(50/N)):100;
+const lab=()=>({teach:"Teach",example:"Example",practice:"Practice",celebrate:"Done!"})[phase]||"";
+
+function home(){
+  el.innerHTML=`<div class="hero"><div class="dragon">🐉</div><h1>Dragon Coach</h1><div class="tag">You can do this alone</div><p class="sub">Pick a mission. I’ll teach, show an example, then you practice for a star.</p></div>`+
+    ["A","B","C","D"].map(id=>{const m=M[id],st=stars[id]|0;return `<button class="card${st?" done":""}" data-id="${id}"><div class="me">${m.emoji}</div><div><div class="mt">Mission ${id}: ${m.title}</div><div class="md">${m.desc}</div></div><div class="stars">${starsH(st)}</div></button>`}).join("")+
+    `<p class="fn">Stars save on this device via localStorage. No login.</p>`;
+  el.querySelectorAll("[data-id]").forEach(b=>b.onclick=()=>start(b.dataset.id));
+}
+function start(id){mid=id;screen="mission";phase="teach";exI=0;streak=0;pc=0;fails=0;item=null;sel=null;fb=null;showH=false;showS=false;draw()}
+function newItem(){item=M[mid].gen();fails=0;sel=null;fb=null;showH=false;showS=false;pc++;phase="practice";draw()}
+function draw(){if(screen==="home")return home();const m=M[mid];let body="";
+if(phase==="teach")body=`<div class="panel"><h2>One big idea</h2>${m.teach}<div class="btns"><button class="btn bp" id="nx">Got it — show example →</button></div></div>`;
+else if(phase==="example"){const steps=m.ex.slice(0,exI+1).map(s=>`<div>👉 ${s}</div>`).join("");const last=exI>=m.ex.length-1;
+body=`<div class="panel"><h2>Example together</h2><p>Tap Next for each step.</p><div class="ex">${steps}</div><div class="btns"><button class="btn bp" id="nx">${last?"I’m ready to practice →":"Next step →"}</button></div></div>`}
+else if(phase==="practice")body=prac();
+else body=`<div class="panel cel"><div style="font-size:64px">🌟🐉🎉</div><h2>Mission star earned!</h2><p>You did that alone.</p><div class="stars" style="font-size:2rem;justify-content:center;display:flex;margin:12px">${starsH(stars[mid])}</div><div class="btns"><button class="btn bg" id="hm">Back to missions</button></div></div>`;
+el.innerHTML=`<div class="bar"><button class="back" id="bk">←</button><div class="prog"><div class="pfill" style="width:${pct()}%"></div></div><div style="font-size:.8rem;color:#94a3b8;min-width:72px;text-align:right">${lab()}</div></div><p style="text-align:center;font-weight:800;margin-bottom:8px">${m.emoji} ${m.title}</p>${body}${phase==="practice"?`<div class="st">Streak: ${streak} / ${N} for a star</div>`:""}`;
+const bk=document.getElementById("bk");if(bk)bk.onclick=()=>{screen="home";home()};
+const hm=document.getElementById("hm");if(hm)hm.onclick=()=>{screen="home";home()};
+const nx=document.getElementById("nx");if(nx)nx.onclick=()=>{if(phase==="teach"){phase="example";exI=0;draw()}else if(phase==="example"){if(exI<M[mid].ex.length-1){exI++;draw()}else newItem()}};
+wire()}
+function prac(){let area="";if(item.type==="choice")area=item.choices.map((c,i)=>`<button class="ch${sel===i?" sel":""}" data-i="${i}">${c.text}</button>`).join("");
+else area=`<div class="row">${item.prefix?`<span style="font-size:1.4rem;font-weight:800">${item.prefix}</span>`:""}<input class="in" id="ans" placeholder="Type answer"></div>`;
+let f="";if(fb)f=`<div class="fb ${fb.k}">${fb.t}</div>`;if(showH&&item.hint)f+=`<div class="fb hi">💡 Hint: ${item.hint}</div>`;if(showS&&item.solution)f+=`<div class="fb so">📘 ${item.solution}</div>`;
+return `<div class="panel"><h2>Your turn</h2><div class="q">${item.prompt}</div>${area}<div class="btns">${showS?`<button class="btn bp" id="nw">Try a new one →</button>`:`<button class="btn bp" id="ck">Check</button><button class="btn bw" id="hi">Hint</button>`}</div>${f}</div>`}
+function wire(){if(phase!=="practice")return;
+el.querySelectorAll(".ch").forEach(b=>b.onclick=()=>{if(showS)return;sel=+b.dataset.i;draw()});
+const ans=document.getElementById("ans");if(ans){ans.onkeydown=e=>{if(e.key==="Enter")check()};setTimeout(()=>ans.focus(),40)}
+const ck=document.getElementById("ck");if(ck)ck.onclick=check;
+const hi=document.getElementById("hi");if(hi)hi.onclick=()=>{showH=true;fb={k:"hi",t:"Take one step — then try again!"};draw()};
+const nw=document.getElementById("nw");if(nw)nw.onclick=newItem}
+function check(){if(!item||showS)return;let ok=false;
+if(item.type==="choice"){if(sel==null){fb={k:"no",t:"Tap an answer first!"};draw();return}ok=!!item.choices[sel].ok}
+else{const v=(document.getElementById("ans")||{}).value||"";if(!String(v).trim()){fb={k:"no",t:"Type your answer first!"};draw();return}ok=item.ok(v,item.answer)}
+if(ok){streak++;fb={k:"ok",t:pick(["Yes! Nailed it! 🎉","You got it! 🐉","Awesome — correct! ⭐"])};showH=false;draw();if(streak>=N)setTimeout(done,700);else setTimeout(newItem,900)}
+else{fails++;streak=0;if(fails>=2){showS=true;showH=true;fb={k:"no",t:"Let’s see the worked solution, then try a new one."}}else fb={k:"no",t:pick(["Not yet — try again!","Close — check your work.","Hmm, not that. Hint?"])};draw()}}
+function done(){stars[mid]=Math.min(3,(stars[mid]|0)+1);save(stars);phase="celebrate";confetti();draw()}
+function confetti(){const L=document.getElementById("confetti");L.innerHTML="";const cols=["#22d3ee","#a78bfa","#4ade80","#fbbf24","#f472b6"];
+for(let i=0;i<48;i++){const d=document.createElement("div");d.className="cf";d.style.left=Math.random()*100+"%";d.style.background=cols[i%5];d.style.animationDuration=(1.5+Math.random()*2)+"s";d.style.animationDelay=Math.random()*.5+"s";L.appendChild(d)}setTimeout(()=>L.innerHTML="",4000)}
+home();
 })();
-</script>
-<noscript>Enable JavaScript to use Check, Hint, and mission practice with localStorage stars.</noscript>
-</body>
-</html>
+</script></body></html>
