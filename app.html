@@ -1,1 +1,1236 @@
-PLACEHOLDER
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dragon Hall Math Skills Pack</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+  <style>
+:root {
+  --forest: #0d3b2e;
+  --forest-deep: #08241c;
+  --forest-mid: #164a3a;
+  --leaf: #1f6b52;
+  --gold: #e8c547;
+  --gold-deep: #c9a227;
+  --gold-soft: #f3de8a;
+  --cream: #f7f1e3;
+  --paper: #fffaf0;
+  --ink: #1c1812;
+  --ink-soft: #4a4338;
+  --blush: #f3d6c4;
+  --sky: #dce9e3;
+  --good: #1d6b45;
+  --warn: #8a4b12;
+  --shadow: 0 18px 40px rgba(8, 36, 28, 0.16);
+  --radius: 22px;
+  --max: 72rem;
+  --serif: "Fraunces", "Iowan Old Style", Georgia, serif;
+  --sans: "Nunito", "Segoe UI", system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--ink);
+  background:
+    radial-gradient(1200px 500px at 10% -10%, rgba(232, 197, 71, 0.18), transparent 50%),
+    radial-gradient(900px 400px at 110% 0%, rgba(31, 107, 82, 0.12), transparent 45%),
+    var(--cream);
+  font-family: var(--sans);
+  line-height: 1.55;
+  min-height: 100vh;
+}
+
+a { color: var(--leaf); }
+a:hover { color: var(--forest); }
+
+.skip {
+  position: absolute;
+  left: -999px;
+  top: 0;
+}
+.skip:focus {
+  left: 1rem;
+  top: 1rem;
+  z-index: 20;
+  background: var(--gold);
+  color: var(--forest-deep);
+  padding: 0.5rem 0.8rem;
+  border-radius: 8px;
+}
+
+.site-header {
+  background: linear-gradient(160deg, var(--forest-deep), var(--forest) 60%, var(--forest-mid));
+  color: var(--cream);
+  border-bottom: 6px solid var(--gold);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.site-header .bar {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0.75rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: inherit;
+  text-decoration: none;
+}
+.brand img, .brand svg { width: 48px; height: 48px; }
+.brand strong {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  letter-spacing: 0.02em;
+  display: block;
+}
+.brand span {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--gold-soft);
+}
+.nav-toggle {
+  display: none;
+  background: transparent;
+  color: var(--gold);
+  border: 2px solid var(--gold);
+  border-radius: 12px;
+  padding: 0.35rem 0.7rem;
+  font: inherit;
+}
+.site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1rem;
+}
+.site-nav a {
+  color: var(--cream);
+  text-decoration: none;
+  font-weight: 700;
+  padding: 0.3rem 0;
+  border-bottom: 2px solid transparent;
+}
+.site-nav a:hover,
+.site-nav a[aria-current="page"] {
+  color: var(--gold);
+  border-bottom-color: var(--gold);
+}
+
+.wrap {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 3rem;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 2rem;
+  align-items: center;
+  padding: 1rem 0 2rem;
+}
+.kicker {
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: var(--gold-deep);
+  margin: 0 0 0.4rem;
+}
+h1, h2, h3, h4 {
+  font-family: var(--serif);
+  line-height: 1.2;
+  margin: 0 0 0.6rem;
+}
+h1 { font-size: clamp(2rem, 4vw, 3.2rem); color: var(--forest); }
+h2 { font-size: 1.7rem; color: var(--forest); }
+h3 { font-size: 1.25rem; color: var(--forest-mid); }
+.lede {
+  font-size: 1.15rem;
+  color: var(--ink-soft);
+  max-width: 42rem;
+}
+.hero-art {
+  background:
+    linear-gradient(180deg, rgba(255,250,240,0.4), transparent),
+    var(--forest);
+  border-radius: 32px;
+  min-height: 260px;
+  padding: 1.5rem;
+  color: var(--cream);
+  box-shadow: var(--shadow);
+  border: 4px solid var(--gold);
+  position: relative;
+  overflow: hidden;
+}
+.hero-art::after {
+  content: "";
+  position: absolute;
+  inset: 12px;
+  border: 1px dashed rgba(232, 197, 71, 0.45);
+  border-radius: 24px;
+  pointer-events: none;
+}
+.hero-art p { margin: 0.4rem 0 0; font-size: 1.05rem; }
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.2rem;
+}
+.card {
+  background: var(--paper);
+  border-radius: var(--radius);
+  padding: 1.3rem 1.4rem 1.5rem;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(13, 59, 46, 0.08);
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  min-height: 100%;
+}
+a.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 22px 44px rgba(8, 36, 28, 0.2);
+}
+.card .num {
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 50%;
+  background: var(--forest);
+  color: var(--gold);
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  font-family: var(--serif);
+}
+.card h2 { font-size: 1.4rem; }
+.card p { margin: 0; color: var(--ink-soft); }
+.ids {
+  font-size: 0.78rem;
+  color: var(--leaf);
+  font-weight: 700;
+}
+
+.panel, .beat, .example, .check, .goal, .cite, .next-row, .adult {
+  background: var(--paper);
+  border-radius: var(--radius);
+  padding: 1.2rem 1.3rem;
+  box-shadow: var(--shadow);
+  margin: 1rem 0;
+}
+.goal {
+  background: linear-gradient(135deg, #123c2f, #1f6b52);
+  color: var(--cream);
+}
+.goal h2, .goal p { color: inherit; }
+.cite {
+  background: var(--sky);
+  font-size: 0.95rem;
+}
+.cite code {
+  background: rgba(13, 59, 46, 0.08);
+  padding: 0.05rem 0.35rem;
+  border-radius: 6px;
+}
+
+.beat {
+  border-left: 8px solid var(--gold);
+}
+.beat .phase {
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+}
+.say, .do, .listen, .hint {
+  margin: 0.7rem 0 0;
+  padding: 0.7rem 0.85rem;
+  border-radius: 14px;
+}
+.say { background: #f3e7c4; }
+.do { background: #dceee6; }
+.listen { background: #f6e3d8; }
+.hint { background: #ece6f5; }
+.say b, .do b, .listen b, .hint b { display: block; margin-bottom: 0.2rem; }
+
+.steps { padding-left: 1.2rem; }
+.steps li { margin: 0.45rem 0; }
+
+.math-block {
+  overflow-x: auto;
+  font-size: 1.2rem;
+  padding: 0.4rem 0;
+}
+
+.check-item { margin: 1.2rem 0; }
+.check-item .prompt { font-size: 1.1rem; }
+.choices { display: grid; gap: 0.5rem; margin: 0.7rem 0; }
+.choices label {
+  display: flex;
+  gap: 0.6rem;
+  align-items: flex-start;
+  background: var(--cream);
+  padding: 0.7rem 0.8rem;
+  border-radius: 12px;
+  cursor: pointer;
+}
+input[type="text"], textarea {
+  width: 100%;
+  max-width: 28rem;
+  font: inherit;
+  padding: 0.65rem 0.75rem;
+  border-radius: 12px;
+  border: 2px solid #c9bfa6;
+  background: #fff;
+}
+textarea { min-height: 5rem; }
+.btn {
+  appearance: none;
+  border: 0;
+  background: var(--forest);
+  color: var(--gold);
+  font: inherit;
+  font-weight: 800;
+  padding: 0.65rem 1.1rem;
+  border-radius: 999px;
+  cursor: pointer;
+}
+.btn:hover { background: var(--forest-deep); }
+.btn.ghost {
+  background: transparent;
+  color: var(--forest);
+  border: 2px solid var(--forest);
+}
+.feedback {
+  margin-top: 0.6rem;
+  font-weight: 700;
+  min-height: 1.3em;
+}
+.feedback.ok { color: var(--good); }
+.feedback.no { color: var(--warn); }
+
+.adult details {
+  border: 2px dashed var(--gold-deep);
+  border-radius: 16px;
+  padding: 0.8rem 1rem;
+  background: #fff8e6;
+}
+.adult summary {
+  cursor: pointer;
+  font-weight: 800;
+  color: var(--warn);
+}
+.adult .key { display: none; }
+.adult details[open] .key { display: block; margin-top: 0.6rem; }
+
+.next-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.practice-q {
+  background: var(--paper);
+  border-radius: var(--radius);
+  padding: 1.3rem;
+  margin: 1.2rem 0;
+  box-shadow: var(--shadow);
+  min-height: 12rem;
+}
+.practice-q .big {
+  font-size: 1.45rem;
+  font-family: var(--serif);
+}
+.write-lines {
+  margin-top: 1.4rem;
+  border-top: 2px dashed #d3c8ad;
+  padding-top: 1rem;
+}
+.write-lines p {
+  border-bottom: 1px solid #d3c8ad;
+  margin: 1.1rem 0 0;
+  height: 1.6rem;
+}
+
+.session {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.pill-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1rem 0; }
+.pill {
+  background: var(--forest);
+  color: var(--gold-soft);
+  border-radius: 999px;
+  padding: 0.35rem 0.8rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.site-footer {
+  background: var(--forest-deep);
+  color: var(--cream);
+  padding: 1.6rem 1.25rem 2.4rem;
+  margin-top: 1rem;
+}
+.site-footer .wrap { padding-bottom: 0; }
+.site-footer a { color: var(--gold-soft); }
+.fine { font-size: 0.85rem; color: #d7cba8; }
+
+.print-banner {
+  background: var(--blush);
+  border-radius: var(--radius);
+  padding: 1rem 1.2rem;
+}
+
+.answer-key {
+  page-break-before: always;
+  break-before: page;
+  background: #fff4d8;
+  border: 4px solid var(--warn);
+  border-radius: 18px;
+  padding: 1.4rem;
+  margin-top: 3rem;
+}
+.answer-key h2 { color: var(--warn); }
+
+@media (max-width: 820px) {
+  .hero, .card-grid, .session { grid-template-columns: 1fr; }
+  .nav-toggle { display: inline-block; }
+  .site-nav {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    padding: 0 1.25rem 1rem;
+  }
+  .site-nav.open { display: flex; }
+  .site-header .bar { flex-wrap: wrap; }
+}
+
+@media print {
+  body { background: #fff; color: #000; }
+  .site-header, .site-footer, .nav-toggle, .no-print, .btn, .skip { display: none !important; }
+  .wrap { max-width: none; padding: 0; }
+  .panel, .practice-q, .card, .beat, .example, .check, .goal, .cite {
+    box-shadow: none;
+    border: 1px solid #bbb;
+    break-inside: avoid;
+  }
+  .practice-q { min-height: 11rem; }
+  a { color: inherit; text-decoration: none; }
+  .answer-key {
+    page-break-before: always;
+    break-before: page;
+  }
+}
+
+  </style>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+</head>
+<body data-prefix="" data-page="home">
+  <div id="main" class="wrap">
+<section class="route" id="route-home" style="display:block">
+    <section class="hero">
+      <div>
+        <p class="kicker">A kitchen-table hall</p>
+        <h1>Four math skills, taught like a real lesson.</h1>
+        <p class="lede">This pack is for one learner and one grown-up. Each lesson follows Dragon Hall Commons beats: say the move, do the move, listen for the right idea. Practice is original. The adult keeps the answer key.</p>
+        <div class="pill-row">
+          <a class="pill" href="#print">Print practice packet</a>
+          <a class="pill" href="#home">Open a lesson</a>
+        </div>
+      </div>
+      <aside class="hero-art" aria-label="How a sitting works">
+        <h2 style="color:#e8c547;font-size:1.35rem;">How a sitting works</h2>
+        <p>1. Grown-up reads the gold <b>Say</b> lines aloud.</p>
+        <p>2. Learner does the green <b>Do</b> step on paper.</p>
+        <p>3. Grown-up listens for the peach line, then hides the key.</p>
+        <p>4. One short check on screen. Paper practice last.</p>
+      </aside>
+    </section>
+
+    <section id="lessons">
+      <h2>Choose a skill</h2>
+      <div class="card-grid">
+        <a class="card" href="#signed">
+          <span class="num">1</span>
+          <h2>Signed mixed numbers</h2>
+          <p>Add a negative mixed number to a positive one. Convert the parts, keep every sign glued to its number, then add.</p>
+          <p class="ids">DH-MATH-5-NF-A-1-mixed-L001 · DH-MATH-7-NS-A-1d-L001</p>
+        </a>
+        <a class="card" href="#ineq">
+          <span class="num">2</span>
+          <h2>Words to an inequality</h2>
+          <p>Turn a sentence about a quotient into an inequality. Watch the “who gets divided” trap and the word <em>less than</em>.</p>
+          <p class="ids">DH-MATH-6-EE-A-2-write-L001 · DH-MATH-6-EE-B-8-L001</p>
+        </a>
+        <a class="card" href="#exp">
+          <span class="num">3</span>
+          <h2>Integer exponent laws</h2>
+          <p>Count factors to multiply and divide powers of the same base. A zero exponent is 1, because the product law says so.</p>
+          <p class="ids">DH-MATH-8-EE-A-1-L001</p>
+        </a>
+        <a class="card" href="#pay">
+          <span class="num">4</span>
+          <h2>Base pay and percent of sales</h2>
+          <p>Name the base. Earnings = base pay + rate × sales. Work both ways: sales to pay, and pay back to sales.</p>
+          <p class="ids">DH-MATH-7-RP-A-3-L001</p>
+        </a>
+      </div>
+    </section>
+
+    <section class="session" style="margin-top:2rem;">
+      <article class="panel">
+        <h2>For the grown-up</h2>
+        <p>You are the teacher in the room. Confirm every grade. Do not leave the adult reveal open on the table. If a check is shaky, stop and reteach the beat that slipped. Do not lower the bar.</p>
+        <p><a href="#print">Print the combined packet</a> with the key on its own page. Tear that page off before the learner sits down.</p>
+      </article>
+      <article class="panel">
+        <h2>What this is not</h2>
+        <p>This is not a copy of any test booklet. The skills match a worksheet shape. The numbers, stories, and choices are original Dragon Hall practice.</p>
+        <p>Paper practice lives here:
+          <a href="#psigned">mixed</a> ·
+          <a href="#pineq">inequalities</a> ·
+          <a href="#pexp">exponents</a> ·
+          <a href="#ppay">percent pay</a>.
+        </p>
+      </article>
+    </section>
+  </section><section class="route" id="route-signed" style="display:none">
+    <p class="kicker">Lesson 1 of 4</p>
+    <h1>Signed mixed numbers</h1>
+    <p class="lede">You will add a negative mixed number to a positive mixed number when the parts have different bottom numbers.</p>
+
+    <section class="goal">
+      <h2>Goal</h2>
+      <p>Convert each mixed number. Glue every sign to its own number. Rewrite the parts in one common unit. Then add. You should be able to say why the sign travels with the number.</p>
+    </section>
+
+    <section class="cite">
+      <p><strong>Commons lessons cited:</strong>
+        <code>DH-MATH-5-NF-A-1-mixed-L001</code> (Wholes and Parts Together) and
+        <code>DH-MATH-7-NS-A-1d-L001</code> (Rearranging a Sum on Purpose).
+        Concept checks: <code>DH-MATH-5-NF-A-1-mixed-CC</code>, <code>DH-MATH-7-NS-A-1d-CC</code>.</p>
+    </section>
+
+    <section class="beat">
+      <p class="phase">Concrete · gather wholes, recut parts</p>
+      <p class="say"><b>Say</b> Put two mixed numbers on the mat in your mind. Gather wholes with wholes. The parts only add after they are the same size. If a half meets five eighths, trade the half for four eighths first.</p>
+      <p class="do"><b>Do</b> On paper, draw two rows: a wholes row and a parts row. For \(2\frac{1}{2} + 1\frac{5}{8}\), write wholes \(2 + 1\) and parts \(\frac{1}{2} + \frac{5}{8}\).</p>
+      <p class="listen"><b>Listen for</b> Four eighths and five eighths make nine eighths. Eight of those snap into one more whole, with one eighth left. The sum is \(4\frac{1}{8}\).</p>
+    </section>
+
+    <section class="beat">
+      <p class="phase">Pictorial · the sign is glued on</p>
+      <p class="say"><b>Say</b> Now one mixed number is negative. The two addition laws talk about adding only. Rewrite first so every sign rides with its number. A minus in front of a mixed number belongs to the whole value, not just the whole-number part.</p>
+      <p class="do"><b>Do</b> Rewrite \(-2\frac{1}{3} + 1\frac{5}{6}\) as adding a negative mixed number to a positive one. Turn each mixed number into one signed fraction.</p>
+      <p class="listen"><b>Listen for</b> \(-2\frac{1}{3} = -\dfrac{7}{3}\) and \(1\frac{5}{6} = \dfrac{11}{6}\). The minus stays in front of seven thirds. It does not get left behind.</p>
+      <p class="hint"><b>If stuck</b> Ask: which number does that minus belong to? Then insist on the rewrite as the first line.</p>
+    </section>
+
+    <section class="beat">
+      <p class="phase">Abstract · common unit, then signed sum</p>
+      <p class="say"><b>Say</b> Thirds and sixths are different sizes. Recut both fractions into sixths, then add the signed parts. Scan before you grind: after the rewrite, the chain is a pure sum.</p>
+      <p class="do"><b>Do</b> Convert \(-\dfrac{7}{3}\) to sixths and add \(\dfrac{11}{6}\).</p>
+      <p class="listen"><b>Listen for</b> \(-\dfrac{14}{6} + \dfrac{11}{6} = -\dfrac{3}{6} = -\dfrac{1}{2}\).</p>
+    </section>
+
+    <section class="example">
+      <h2>Worked example</h2>
+      <p>Compute \(-2\frac{1}{3} + 1\frac{5}{6}\).</p>
+      <ol class="steps">
+        <li>Rewrite as signed impropers: \(-\dfrac{7}{3} + \dfrac{11}{6}\).</li>
+        <li>Common unit sixths: \(-\dfrac{14}{6} + \dfrac{11}{6}\).</li>
+        <li>Add the numerators: \(-14 + 11 = -3\), so \(-\dfrac{3}{6}\).</li>
+        <li>Simplify: \(-\dfrac{1}{2}\).</li>
+      </ol>
+      <p>The rows way agrees: wholes \(-2 + 1 = -1\), parts \(-\dfrac{2}{6} + \dfrac{5}{6} = \dfrac{3}{6}\), then \(-1 + \dfrac{1}{2} = -\dfrac{1}{2}\).</p>
+    </section>
+
+    <section class="check">
+      <h2>Interactive check</h2>
+      <p>Write your answer, then check. A grown-up opens the reveal only if you need it.</p>
+
+      <form class="check-item" data-check data-accept='["-5/8","-0.625"]'>
+        <p class="prompt">1. Compute \(-3\frac{1}{4} + 2\frac{5}{8}\). Give a simplified fraction.</p>
+        <input type="text" name="answer" aria-label="Answer to problem 1" placeholder="example: -1/2" autocomplete="off">
+        <p><button class="btn" type="submit">Check</button></p>
+        <p class="feedback" role="status"></p>
+      </form>
+
+      <form class="check-item" data-check data-accept='["11/10","1 1/10","1 1/10","1.1"]'>
+        <p class="prompt">2. Compute \(-1\frac{2}{5} + 2\frac{1}{2}\). Mixed number or improper fraction is fine.</p>
+        <input type="text" name="answer" aria-label="Answer to problem 2" placeholder="example: 1 1/4" autocomplete="off">
+        <p><button class="btn" type="submit">Check</button></p>
+        <p class="feedback" role="status"></p>
+      </form>
+
+      <div class="adult">
+        <details>
+          <summary>Adult only — reveal keys</summary>
+          <div class="key">
+            <p><strong>1.</strong> \(-\dfrac{13}{4}+\dfrac{21}{8}=-\dfrac{26}{8}+\dfrac{21}{8}=-\dfrac{5}{8}\).</p>
+            <p><strong>2.</strong> \(-\dfrac{7}{5}+\dfrac{5}{2}=-\dfrac{14}{10}+\dfrac{25}{10}=\dfrac{11}{10}=1\frac{1}{10}\).</p>
+            <p>Watch for adding unlike parts without converting, or dropping the sign when the number is rewritten.</p>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <section class="next-row">
+      <a class="btn ghost" href="#psigned">Paper practice</a>
+      <a class="btn" href="#ineq">Next lesson</a>
+    </section>
+  </section><section class="route" id="route-ineq" style="display:none">
+    <p class="kicker">Lesson 2 of 4</p>
+    <h1>Words to an inequality</h1>
+    <p class="lede">You will turn a sentence about a quotient into an inequality, with the numbers in the right order.</p>
+
+    <section class="goal">
+      <h2>Goal</h2>
+      <p>Write the quotient the correct way around. Choose the sign that matches <em>less than</em> (not “at most”). Read the symbols back into words as a check.</p>
+    </section>
+
+    <section class="cite">
+      <p><strong>Commons lessons cited:</strong>
+        <code>DH-MATH-6-EE-A-2-write-L001</code> (Writing Expressions from Words) and
+        <code>DH-MATH-6-EE-B-8-L001</code> (Inequalities on the Number Line).
+        Concept checks: <code>DH-MATH-6-EE-A-2-write-CC</code>, <code>DH-MATH-6-EE-B-8-CC</code>.</p>
+    </section>
+
+    <section class="beat">
+      <p class="phase">Concrete · the letter is a length</p>
+      <p class="say"><b>Say</b> This strip is \(n\). We do not know its length, so we give it a name. An expression is a record of what we did to \(n\).</p>
+      <p class="do"><b>Do</b> Imagine cutting the \(n\) strip into 5 equal pieces. That record is the quotient of \(n\) and 5.</p>
+      <p class="listen"><b>Listen for</b> \(n\) is the amount being cut, so \(n\) goes on top: \(\dfrac{n}{5}\).</p>
+    </section>
+
+    <section class="beat">
+      <p class="phase">Pictorial · two traps</p>
+      <p class="say"><b>Say</b> Division has a trap. “The quotient of \(t\) and 3.” Which number gets divided up? That one goes on top. “Divide 12 by \(k\)” puts 12 on top.</p>
+      <p class="do"><b>Do</b> Write both: the quotient of \(t\) and 3, and divide 12 by \(k\).</p>
+      <p class="listen"><b>Listen for</b> \(\dfrac{t}{3}\) and \(\dfrac{12}{k}\). Wrong answers to catch: \(\dfrac{3}{t}\) and \(\dfrac{k}{12}\).</p>
+      <p class="say"><b>Say</b> Now the inequality words. “Less than 8” is a strict door. 8 itself is left out. We write \(\lt 8\), not \(\le 8\).</p>
+      <p class="do"><b>Do</b> Test the boundary. Is 8 less than 8?</p>
+      <p class="listen"><b>Listen for</b> No. So the boundary is not a solution.</p>
+    </section>
+
+    <section class="beat">
+      <p class="phase">Abstract · read it back</p>
+      <p class="say"><b>Say</b> Put the two moves together. “The quotient of a number \(n\) and 5 is less than 8.” Write it, then read it back.</p>
+      <p class="do"><b>Do</b> Write the inequality, then say it in words.</p>
+      <p class="listen"><b>Listen for</b> \(\dfrac{n}{5} \lt 8\). Read-back: “\(n\) split into 5 parts is less than 8.” That matches. \(\dfrac{5}{n} \lt 8\) would mean 5 is the amount being cut.</p>
+    </section>
+
+    <section class="example">
+      <h2>Worked example</h2>
+      <p>Write an inequality: the quotient of a number \(n\) and 5 is less than 8.</p>
+      <ol class="steps">
+        <li>Quotient of \(n\) and 5 means \(n\) is divided: \(\dfrac{n}{5}\).</li>
+        <li>“Less than 8” is strict: \(\lt 8\).</li>
+        <li>Together: \(\dfrac{n}{5} \lt 8\).</li>
+        <li>Read back. The words match, so the order is right.</li>
+      </ol>
+    </section>
+
+    <section class="check">
+      <h2>Interactive check</h2>
+
+      <form class="check-item" data-check data-accept='["w/6<4","w/6 < 4"]'>
+        <p class="prompt">1. “The quotient of a number \(w\) and 6 is less than 4.” Which inequality is right?</p>
+        <div class="choices">
+          <label><input type="radio" name="answer" value="6/w<4"> \(\dfrac{6}{w} \lt 4\)</label>
+          <label><input type="radio" name="answer" value="w/6<4"> \(\dfrac{w}{6} \lt 4\)</label>
+          <label><input type="radio" name="answer" value="w/6<=4"> \(\dfrac{w}{6} \le 4\)</label>
+          <label><input type="radio" name="answer" value="w-6<4"> \(w - 6 \lt 4\)</label>
+        </div>
+        <p><button class="btn" type="submit">Check</button></p>
+        <p class="feedback" role="status"></p>
+      </form>
+
+      <form class="check-item" data-check data-accept='["12/k<3"]'>
+        <p class="prompt">2. “The quotient of 12 and a number \(k\) is less than 3.” Type the inequality.</p>
+        <input type="text" name="answer" aria-label="Answer to problem 2" placeholder="example: n/5 < 8" autocomplete="off">
+        <p><button class="btn" type="submit">Check</button></p>
+        <p class="feedback" role="status"></p>
+      </form>
+
+      <div class="adult">
+        <details>
+          <summary>Adult only — reveal keys</summary>
+          <div class="key">
+            <p><strong>1.</strong> \(\dfrac{w}{6} \lt 4\). \(w\) is being cut. “Less than” is not “at most.”</p>
+            <p><strong>2.</strong> \(\dfrac{12}{k} \lt 3\). 12 is the amount being divided.</p>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <section class="next-row">
+      <a class="btn ghost" href="#pineq">Paper practice</a>
+      <a class="btn" href="#exp">Next lesson</a>
+    </section>
+  </section><section class="route" id="route-exp" style="display:none">
+    <p class="kicker">Lesson 3 of 4</p>
+    <h1>Integer exponent laws</h1>
+    <p class="lede">You will simplify a product and a quotient of powers of the same base, including a zero exponent.</p>
+
+    <section class="goal">
+      <h2>Goal</h2>
+      <p>Read an exponent as a count of factors. Multiply by adding counts. Divide by subtracting counts. Show why a nonzero base to the power 0 must be 1, so the product law keeps working.</p>
+    </section>
+
+    <section class="cite">
+      <p><strong>Commons lesson cited:</strong>
+        <code>DH-MATH-8-EE-A-1-L001</code> (Where the Exponent Laws Come From).
+        Concept check: <code>DH-MATH-8-EE-A-1-CC</code>.</p>
+    </section>
+
+    <section class="beat">
+      <p class="phase">Concrete · count the factors</p>
+      <p class="say"><b>Say</b> For a positive whole number \(n\), \(a^n\) means \(a\) multiplied by itself \(n\) times. An exponent is a count.</p>
+      <p class="do"><b>Do</b> Write \(a^4 \cdot a^3\) out as factors and count.</p>
+      <p class="listen"><b>Listen for</b> Four factors joined with three factors make seven factors, so \(a^4 \cdot a^3 = a^7\). In general \(a^m \cdot a^n = a^{m+n}\).</p>
+    </section>
+
+    <section class="beat">
+      <p class="phase">Concrete · division is counting backwards</p>
+      <p class="say"><b>Say</b> In \(\dfrac{a^5}{a^2}\), two factors on the bottom cancel two of the five on top, leaving three. The exponents subtract.</p>
+      <p class="do"><b>Do</b> Write \(\dfrac{a^6}{a^4}\) in factors and cancel.</p>
+      <p class="listen"><b>Listen for</b> \(a^2\). You do not have to memorize if you can count.</p>
+    </section>
+
+    <section class="beat">
+      <p class="phase">Pictorial · why the zero exponent is 1</p>
+      <p class="say"><b>Say</b> What should \(a^0\) mean? Multiply \(a\) by itself zero times does not describe anything. Mathematicians give zero the meaning that keeps the product law true.</p>
+      <p class="do"><b>Do</b> Finish this: \(a^m \cdot a^0\) must equal \(a^{m+0}\), which is just \(a^m\). What number can you multiply by without changing anything?</p>
+      <p class="listen"><b>Listen for</b> 1. So \(a^0 = 1\) for any nonzero \(a\). It is not 0.</p>
+    </section>
+
+    <section class="beat">
+      <p class="phase">Abstract · same base, then simplify</p>
+      <p class="say"><b>Say</b> These laws are about multiplying and dividing powers of the <em>same</em> base. They say nothing about sums. Check: \((2+3)^2 = 25\), but \(2^2 + 3^2 = 13\).</p>
+      <p class="do"><b>Do</b> Simplify \(\dfrac{4^5 \cdot 4^0}{4^2}\) by naming the law at each step.</p>
+      <p class="listen"><b>Listen for</b> Product law: \(4^{5+0} = 4^5\). Quotient law: \(4^{5-2} = 4^3 = 64\). Zero exponent made a factor of 1.</p>
+    </section>
+
+    <section class="example">
+      <h2>Worked example</h2>
+      <p>Simplify \(\dfrac{4^5 \cdot 4^0}{4^2}\).</p>
+      <ol class="steps">
+        <li>Same base 4, so the laws apply.</li>
+        <li>\(4^0 = 1\), and \(4^5 \cdot 1 = 4^5\) (or add: \(5 + 0 = 5\)).</li>
+        <li>Divide: \(5 - 2 = 3\), so \(4^3\).</li>
+        <li>\(4^3 = 64\).</li>
+      </ol>
+    </section>
+
+    <section class="check">
+      <h2>Interactive check</h2>
+
+      <form class="check-item" data-check data-accept='["7^7","823543"]'>
+        <p class="prompt">1. Simplify \(\dfrac{7^3 \cdot 7^4}{7^0}\) as a single power of 7.</p>
+        <input type="text" name="answer" aria-label="Answer to problem 1" placeholder="example: 5^3" autocomplete="off">
+        <p><button class="btn" type="submit">Check</button></p>
+        <p class="feedback" role="status"></p>
+      </form>
+
+      <form class="check-item" data-check data-accept='["32","2^5"]'>
+        <p class="prompt">2. Simplify \(\dfrac{2^8}{2^3 \cdot 2^0}\) as a number or as \(2^5\).</p>
+        <input type="text" name="answer" aria-label="Answer to problem 2" placeholder="example: 16" autocomplete="off">
+        <p><button class="btn" type="submit">Check</button></p>
+        <p class="feedback" role="status"></p>
+      </form>
+
+      <div class="adult">
+        <details>
+          <summary>Adult only — reveal keys</summary>
+          <div class="key">
+            <p><strong>1.</strong> \(7^{3+4-0} = 7^7\). The zero exponent does not wipe the other factors out.</p>
+            <p><strong>2.</strong> \(2^{8-3-0} = 2^5 = 32\).</p>
+            <p>Catch: multiplying exponents instead of adding, or saying \(a^0 = 0\).</p>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <section class="next-row">
+      <a class="btn ghost" href="#pexp">Paper practice</a>
+      <a class="btn" href="#pay">Next lesson</a>
+    </section>
+  </section><section class="route" id="route-pay" style="display:none">
+    <p class="kicker">Lesson 4 of 4</p>
+    <h1>Base pay and percent of sales</h1>
+    <p class="lede">You will find earnings from sales, and sales from earnings, when pay is a fixed amount plus a percent of sales.</p>
+
+    <section class="goal">
+      <h2>Goal</h2>
+      <p>Reduce the job to \(\text{part} = \dfrac{p}{100} \times \text{base}\). Name the base of the percent every time. Then solve both directions.</p>
+    </section>
+
+    <section class="cite">
+      <p><strong>Commons lesson cited:</strong>
+        <code>DH-MATH-7-RP-A-3-L001</code> (One Principle for Every Percent).
+        Concept check: <code>DH-MATH-7-RP-A-3-CC</code>.</p>
+    </section>
+
+    <section class="beat">
+      <p class="phase">Concrete · name the base first</p>
+      <p class="say"><b>Say</b> Before you compute anything, ask the question every percent problem turns on: percent of <em>what</em>? A percent is a rate. \(p\%\) means \(p\) out of every 100, the number \(\dfrac{p}{100}\).</p>
+      <p class="do"><b>Do</b> Place a paper tag that says BASE on the amount the percent acts on. In “$280 plus 5% of sales,” the percent acts on sales, not on the $280.</p>
+      <p class="listen"><b>Listen for</b> Base of the 5% is the sales amount. Base pay is a separate addend.</p>
+    </section>
+
+    <section class="beat">
+      <p class="phase">Pictorial · write the equation</p>
+      <p class="say"><b>Say</b> Earnings = base pay + rate × sales. That is \(E = 280 + 0.05S\). The 0.05 is 5% written as a rate.</p>
+      <p class="do"><b>Do</b> If Saturday sales are $640, compute the commission first, then add the base pay.</p>
+      <p class="listen"><b>Listen for</b> \(0.05 \times 640 = 32\), then \(280 + 32 = 312\). Earnings are $312.</p>
+    </section>
+
+    <section class="beat">
+      <p class="phase">Abstract · the unknown is the base</p>
+      <p class="say"><b>Say</b> When the unknown is the sales, the same equation becomes something to solve. Nothing new is invented. Part = rate × base, with sales as the base.</p>
+      <p class="do"><b>Do</b> Maya earned $400. \(280 + 0.05S = 400\). Find \(S\).</p>
+      <p class="listen"><b>Listen for</b> \(0.05S = 120\), so \(S = 2400\). Sales were $2,400. Listen for the equation before the answer.</p>
+      <p class="hint"><b>If stuck</b> Undo the base pay first. What remains is the percent piece. Then divide by the rate, not by 5.</p>
+    </section>
+
+    <section class="example">
+      <h2>Worked example</h2>
+      <p>Maya earns $280 plus 5% of her sales.</p>
+      <ol class="steps">
+        <li>Name the base: the percent acts on sales \(S\). Equation: \(E = 280 + 0.05S\).</li>
+        <li>Given sales $640: \(E = 280 + 0.05 \times 640 = 280 + 32 = 312\).</li>
+        <li>Given earnings $400: \(280 + 0.05S = 400\), so \(0.05S = 120\), \(S = 2400\).</li>
+      </ol>
+    </section>
+
+    <section class="check">
+      <h2>Interactive check</h2>
+      <p>Same job in both items: $350 plus 8% of sales.</p>
+
+      <form class="check-item" data-check data-accept='["450","450.00"]'>
+        <p class="prompt">1. Sales are $1,250. What are the earnings, in dollars?</p>
+        <input type="text" name="answer" aria-label="Answer to problem 1" placeholder="example: 312" autocomplete="off">
+        <p><button class="btn" type="submit">Check</button></p>
+        <p class="feedback" role="status"></p>
+      </form>
+
+      <form class="check-item" data-check data-accept='["2000","2,000","2000.00"]'>
+        <p class="prompt">2. Earnings are $510. What were the sales, in dollars?</p>
+        <input type="text" name="answer" aria-label="Answer to problem 2" placeholder="example: 2400" autocomplete="off">
+        <p><button class="btn" type="submit">Check</button></p>
+        <p class="feedback" role="status"></p>
+      </form>
+
+      <div class="adult">
+        <details>
+          <summary>Adult only — reveal keys</summary>
+          <div class="key">
+            <p><strong>1.</strong> \(350 + 0.08 \times 1250 = 350 + 100 = 450\).</p>
+            <p><strong>2.</strong> \(350 + 0.08S = 510\), so \(0.08S = 160\), \(S = 2000\).</p>
+            <p>Catch: treating 8% as ×8, or taking 8% of the $350 instead of sales.</p>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <section class="next-row">
+      <a class="btn ghost" href="#ppay">Paper practice</a>
+      <a class="btn" href="#print">Print full packet</a>
+    </section>
+  </section><section class="route" id="route-print" style="display:none">
+    <div class="print-banner no-print">
+      <p><strong>Print this page.</strong> Use File → Print. The adult key starts on a new sheet. Tear that sheet off before the sitting.</p>
+      <p><button class="btn" type="button" onclick="window.print()">Print packet</button></p>
+    </div>
+
+    <h1>Dragon Hall practice packet</h1>
+    <p>Name ________________________ &nbsp; Date ______________</p>
+    <p>Show every rewrite. The grown-up grades after you finish. Do not look for an answer key on these pages.</p>
+
+    <h2>A. Signed mixed numbers</h2>
+    <p class="ids">DH-MATH-5-NF-A-1-mixed · DH-MATH-7-NS-A-1d</p>
+    <article class="practice-q"><p class="big">A1. \(-4\frac{1}{2} + 3\frac{1}{3}\)</p><div class="write-lines"><p></p><p></p><p></p></div></article>
+    <article class="practice-q"><p class="big">A2. \(-2\frac{3}{5} + 1\frac{1}{2}\)</p><div class="write-lines"><p></p><p></p><p></p></div></article>
+    <article class="practice-q"><p class="big">A3. \(-1\frac{1}{6} + 2\frac{3}{4}\)</p><div class="write-lines"><p></p><p></p><p></p></div></article>
+    <article class="practice-q"><p class="big">A4. \(-3\frac{2}{3} + 2\frac{1}{4}\)</p><div class="write-lines"><p></p><p></p><p></p></div></article>
+    <article class="practice-q"><p class="big">A5. \(-2\frac{1}{8} + 3\frac{1}{2}\)</p><div class="write-lines"><p></p><p></p><p></p></div></article>
+    <article class="practice-q"><p class="big">A6. \(-5\frac{3}{4} + 4\frac{2}{5}\)</p><div class="write-lines"><p></p><p></p><p></p></div></article>
+
+    <h2>B. Words to an inequality</h2>
+    <p class="ids">DH-MATH-6-EE-A-2-write · DH-MATH-6-EE-B-8</p>
+    <article class="practice-q"><p class="big">B1. The quotient of a number \(m\) and 8 is less than 2.</p><div class="write-lines"><p></p><p></p></div></article>
+    <article class="practice-q"><p class="big">B2. The quotient of a number \(t\) and 3 is less than 10.</p><div class="write-lines"><p></p><p></p></div></article>
+    <article class="practice-q"><p class="big">B3. The quotient of 20 and a number \(p\) is less than 5.</p><div class="write-lines"><p></p><p></p></div></article>
+    <article class="practice-q"><p class="big">B4. A number \(n\) divided by 9 is less than 7.</p><div class="write-lines"><p></p><p></p></div></article>
+    <article class="practice-q"><p class="big">B5. The quotient of a number \(r\) and 4 is at most 11.</p><div class="write-lines"><p></p><p></p></div></article>
+    <article class="practice-q"><p class="big">B6. A friend wrote “the quotient of \(n\) and 5 is less than 2” as \(\dfrac{5}{n} \lt 2\). Fix it, and say what went wrong.</p><div class="write-lines"><p></p><p></p></div></article>
+
+    <h2>C. Integer exponent laws</h2>
+    <p class="ids">DH-MATH-8-EE-A-1</p>
+    <article class="practice-q"><p class="big">C1. \(5^2 \cdot 5^3 \cdot 5^0\) as a number</p><div class="write-lines"><p></p><p></p></div></article>
+    <article class="practice-q"><p class="big">C2. \(\dfrac{8^7}{8^4}\) as a number</p><div class="write-lines"><p></p><p></p></div></article>
+    <article class="practice-q"><p class="big">C3. \(\dfrac{3^6 \cdot 3^0}{3^2}\) as a number</p><div class="write-lines"><p></p><p></p></div></article>
+    <article class="practice-q"><p class="big">C4. \(\dfrac{10^0 \cdot 10^4}{10}\) as a number</p><div class="write-lines"><p></p><p></p></div></article>
+    <article class="practice-q"><p class="big">C5. \(\dfrac{6^5}{6^2 \cdot 6^0}\) as a number</p><div class="write-lines"><p></p><p></p></div></article>
+    <article class="practice-q"><p class="big">C6. Why is \(9^0\) equal to 1, not 0?</p><div class="write-lines"><p></p><p></p></div></article>
+
+    <h2>D. Base pay and percent of sales</h2>
+    <p class="ids">DH-MATH-7-RP-A-3</p>
+    <article class="practice-q"><p class="big">D1. $400 plus 6% of $900 sales. Earnings?</p><div class="write-lines"><p></p><p></p></div></article>
+    <article class="practice-q"><p class="big">D2. $220 plus 12% of $750 sales. Earnings?</p><div class="write-lines"><p></p><p></p></div></article>
+    <article class="practice-q"><p class="big">D3. $500 plus 4% of sales = $620. Sales?</p><div class="write-lines"><p></p><p></p></div></article>
+    <article class="practice-q"><p class="big">D4. $180 plus 9% of sales = $360. Sales?</p><div class="write-lines"><p></p><p></p></div></article>
+    <article class="practice-q"><p class="big">D5. “$250 plus 7% of Saturday sales.” Name the base of the 7%.</p><div class="write-lines"><p></p><p></p></div></article>
+    <article class="practice-q"><p class="big">D6. $300 plus 10% of sales. Sales $480 → earnings? Earnings $420 → sales?</p><div class="write-lines"><p></p><p></p><p></p></div></article>
+
+    <section class="answer-key" id="adult-key">
+      <h2>Adult only — keep separate</h2>
+      <p>Tear this sheet off. The learner should not see it during the sitting. The adult confirms every grade.</p>
+
+      <h3>A. Signed mixed numbers</h3>
+      <ol>
+        <li>\(-\dfrac{9}{2}+\dfrac{10}{3}=-\dfrac{27}{6}+\dfrac{20}{6}=-\dfrac{7}{6}=-1\dfrac{1}{6}\)</li>
+        <li>\(-\dfrac{13}{5}+\dfrac{3}{2}=-\dfrac{26}{10}+\dfrac{15}{10}=-\dfrac{11}{10}=-1\dfrac{1}{10}\)</li>
+        <li>\(-\dfrac{7}{6}+\dfrac{11}{4}=-\dfrac{14}{12}+\dfrac{33}{12}=\dfrac{19}{12}=1\dfrac{7}{12}\)</li>
+        <li>\(-\dfrac{11}{3}+\dfrac{9}{4}=-\dfrac{44}{12}+\dfrac{27}{12}=-\dfrac{17}{12}=-1\dfrac{5}{12}\)</li>
+        <li>\(-\dfrac{17}{8}+\dfrac{7}{2}=-\dfrac{17}{8}+\dfrac{28}{8}=\dfrac{11}{8}=1\dfrac{3}{8}\)</li>
+        <li>\(-\dfrac{23}{4}+\dfrac{22}{5}=-\dfrac{115}{20}+\dfrac{88}{20}=-\dfrac{27}{20}=-1\dfrac{7}{20}\)</li>
+      </ol>
+
+      <h3>B. Inequalities</h3>
+      <ol>
+        <li>\(\dfrac{m}{8} \lt 2\)</li>
+        <li>\(\dfrac{t}{3} \lt 10\)</li>
+        <li>\(\dfrac{20}{p} \lt 5\)</li>
+        <li>\(\dfrac{n}{9} \lt 7\)</li>
+        <li>\(\dfrac{r}{4} \le 11\) (“at most” includes 11)</li>
+        <li>The friend put the letters in word order. \(n\) is being cut, so \(\dfrac{n}{5} \lt 2\).</li>
+      </ol>
+
+      <h3>C. Exponents</h3>
+      <ol>
+        <li>\(5^{2+3+0}=5^5=3125\)</li>
+        <li>\(8^{7-4}=8^3=512\)</li>
+        <li>\(3^{6+0-2}=3^4=81\)</li>
+        <li>\(10^{0+4-1}=10^3=1000\)</li>
+        <li>\(6^{5-2-0}=6^3=216\)</li>
+        <li>\(9^m \cdot 9^0 = 9^{m+0}=9^m\), so multiplying by \(9^0\) changes nothing. The only such number is 1.</li>
+      </ol>
+
+      <h3>D. Percent pay</h3>
+      <ol>
+        <li>\(400 + 0.06 \times 900 = 400 + 54 = 454\)</li>
+        <li>\(220 + 0.12 \times 750 = 220 + 90 = 310\)</li>
+        <li>\(500 + 0.04S = 620\), \(0.04S=120\), \(S=3000\)</li>
+        <li>\(180 + 0.09S = 360\), \(0.09S=180\), \(S=2000\)</li>
+        <li>Saturday sales (not the $250 base pay)</li>
+        <li>\(300 + 0.10 \times 480 = 348\). Then \(300 + 0.10S = 420\), \(S=1200\).</li>
+      </ol>
+    </section>
+  </section><section class="route" id="route-psigned" style="display:none">
+    <p class="kicker no-print">Paper practice</p>
+    <h1>Signed mixed-number addition</h1>
+    <p class="lede no-print">Show the rewrite, the common unit, and the signed sum. A grown-up grades from the key on the print packet.</p>
+    <p class="ids">Anchors: DH-MATH-5-NF-A-1-mixed · DH-MATH-7-NS-A-1d</p>
+
+    <article class="practice-q">
+      <p>1. Compute \(-4\frac{1}{2} + 3\frac{1}{3}\).</p>
+      <div class="write-lines"><p></p><p></p><p></p><p></p></div>
+    </article>
+    <article class="practice-q">
+      <p>2. Compute \(-2\frac{3}{5} + 1\frac{1}{2}\).</p>
+      <div class="write-lines"><p></p><p></p><p></p><p></p></div>
+    </article>
+    <article class="practice-q">
+      <p>3. Compute \(-1\frac{1}{6} + 2\frac{3}{4}\).</p>
+      <div class="write-lines"><p></p><p></p><p></p><p></p></div>
+    </article>
+    <article class="practice-q">
+      <p>4. Compute \(-3\frac{2}{3} + 2\frac{1}{4}\).</p>
+      <div class="write-lines"><p></p><p></p><p></p><p></p></div>
+    </article>
+    <article class="practice-q">
+      <p>5. Compute \(-2\frac{1}{8} + 3\frac{1}{2}\).</p>
+      <div class="write-lines"><p></p><p></p><p></p><p></p></div>
+    </article>
+    <article class="practice-q">
+      <p>6. Compute \(-5\frac{3}{4} + 4\frac{2}{5}\).</p>
+      <div class="write-lines"><p></p><p></p><p></p><p></p></div>
+    </article>
+
+    <p class="no-print"><a class="btn ghost" href="#signed">Back to the lesson</a>
+      <a class="btn" href="#print">Full packet + adult key</a></p>
+  </section><section class="route" id="route-pineq" style="display:none">
+    <p class="kicker no-print">Paper practice</p>
+    <h1>Translate the sentence</h1>
+    <p class="lede no-print">Write one inequality. Then read it back in words underneath.</p>
+    <p class="ids">Anchors: DH-MATH-6-EE-A-2-write · DH-MATH-6-EE-B-8</p>
+
+    <article class="practice-q">
+      <p class="big">1. The quotient of a number \(m\) and 8 is less than 2.</p>
+      <div class="write-lines"><p></p><p></p><p></p></div>
+    </article>
+    <article class="practice-q">
+      <p class="big">2. The quotient of a number \(t\) and 3 is less than 10.</p>
+      <div class="write-lines"><p></p><p></p><p></p></div>
+    </article>
+    <article class="practice-q">
+      <p class="big">3. The quotient of 20 and a number \(p\) is less than 5.</p>
+      <div class="write-lines"><p></p><p></p><p></p></div>
+    </article>
+    <article class="practice-q">
+      <p class="big">4. A number \(n\) divided by 9 is less than 7.</p>
+      <div class="write-lines"><p></p><p></p><p></p></div>
+    </article>
+    <article class="practice-q">
+      <p class="big">5. The quotient of a number \(r\) and 4 is at most 11.</p>
+      <div class="write-lines"><p></p><p></p><p></p></div>
+    </article>
+    <article class="practice-q">
+      <p class="big">6. A friend wrote “the quotient of a number \(n\) and 5 is less than 2” as \(\dfrac{5}{n} \lt 2\). Name the error and write the correct inequality.</p>
+      <div class="write-lines"><p></p><p></p><p></p></div>
+    </article>
+
+    <p class="no-print"><a class="btn ghost" href="#ineq">Back to the lesson</a>
+      <a class="btn" href="#print">Full packet + adult key</a></p>
+  </section><section class="route" id="route-pexp" style="display:none">
+    <p class="kicker no-print">Paper practice</p>
+    <h1>Simplify the powers</h1>
+    <p class="lede no-print">Name the law you use. Leave a single power or a plain number, whichever the problem asks.</p>
+    <p class="ids">Anchor: DH-MATH-8-EE-A-1</p>
+
+    <article class="practice-q">
+      <p class="big">1. Simplify \(5^2 \cdot 5^3 \cdot 5^0\). Give a number.</p>
+      <div class="write-lines"><p></p><p></p><p></p></div>
+    </article>
+    <article class="practice-q">
+      <p class="big">2. Simplify \(\dfrac{8^7}{8^4}\). Give a number.</p>
+      <div class="write-lines"><p></p><p></p><p></p></div>
+    </article>
+    <article class="practice-q">
+      <p class="big">3. Simplify \(\dfrac{3^6 \cdot 3^0}{3^2}\). Give a number.</p>
+      <div class="write-lines"><p></p><p></p><p></p></div>
+    </article>
+    <article class="practice-q">
+      <p class="big">4. Simplify \(\dfrac{10^0 \cdot 10^4}{10}\). Give a number.</p>
+      <div class="write-lines"><p></p><p></p><p></p></div>
+    </article>
+    <article class="practice-q">
+      <p class="big">5. Simplify \(\dfrac{6^5}{6^2 \cdot 6^0}\). Give a number.</p>
+      <div class="write-lines"><p></p><p></p><p></p></div>
+    </article>
+    <article class="practice-q">
+      <p class="big">6. A classmate says \(9^0 = 0\). Explain why the product law forces \(9^0 = 1\) instead.</p>
+      <div class="write-lines"><p></p><p></p><p></p></div>
+    </article>
+
+    <p class="no-print"><a class="btn ghost" href="#exp">Back to the lesson</a>
+      <a class="btn" href="#print">Full packet + adult key</a></p>
+  </section><section class="route" id="route-ppay" style="display:none">
+    <p class="kicker no-print">Paper practice</p>
+    <h1>Name the base, then compute</h1>
+    <p class="lede no-print">Write the equation first. Circle the base of every percent.</p>
+    <p class="ids">Anchor: DH-MATH-7-RP-A-3</p>
+
+    <article class="practice-q">
+      <p class="big">1. Jordan earns $400 plus 6% of sales. Sales are $900. Find the earnings.</p>
+      <div class="write-lines"><p></p><p></p><p></p></div>
+    </article>
+    <article class="practice-q">
+      <p class="big">2. Priya earns $220 plus 12% of sales. Sales are $750. Find the earnings.</p>
+      <div class="write-lines"><p></p><p></p><p></p></div>
+    </article>
+    <article class="practice-q">
+      <p class="big">3. A stall pays $500 plus 4% of sales. Earnings come to $620. Find the sales.</p>
+      <div class="write-lines"><p></p><p></p><p></p></div>
+    </article>
+    <article class="practice-q">
+      <p class="big">4. A booth pays $180 plus 9% of sales. Earnings come to $360. Find the sales.</p>
+      <div class="write-lines"><p></p><p></p><p></p></div>
+    </article>
+    <article class="practice-q">
+      <p class="big">5. “Base pay $250 plus 7% of Saturday sales.” Name the base of the 7%.</p>
+      <div class="write-lines"><p></p><p></p><p></p></div>
+    </article>
+    <article class="practice-q">
+      <p class="big">6. Sam earns $300 plus 10% of sales. If sales are $480, what are the earnings? If earnings are $420, what were the sales?</p>
+      <div class="write-lines"><p></p><p></p><p></p><p></p></div>
+    </article>
+
+    <p class="no-print"><a class="btn ghost" href="#pay">Back to the lesson</a>
+      <a class="btn" href="#print">Full packet + adult key</a></p>
+  </section>
+  </div>
+  <script>
+(function () {
+  const body = document.body;
+  const prefix = body.getAttribute("data-prefix") || "";
+  const page = body.getAttribute("data-page") || "";
+
+  function mark(current) {
+    return current ? ' aria-current="page"' : "";
+  }
+
+  const header = document.createElement("header");
+  header.className = "site-header";
+  header.innerHTML = `
+    <a class="skip" href="#main">Skip to lesson</a>
+    <div class="bar">
+      <a class="brand" href="#home">
+        <img src="https://cdn.jsdelivr.net/gh/AlexBarba-x/dragon-hall-math-skills-pack@main/img/mark.svg" alt="" width="48" height="48">
+        <span>
+          <strong>Dragon Hall Math</strong>
+          <span>Skills pack for one learner</span>
+        </span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    </div>
+    <nav class="site-nav" id="site-nav">
+      <a href="#home"${mark(page === "home")}>Home</a>
+      <a href="#signed"${mark(page === "signed")}>Signed mixed</a>
+      <a href="#ineq"${mark(page === "ineq")}>Inequalities</a>
+      <a href="#exp"${mark(page === "exp")}>Exponents</a>
+      <a href="#pay"${mark(page === "pay")}>Percent pay</a>
+      <a href="#print"${mark(page === "print")}>Print packet</a>
+    </nav>
+  `;
+
+  const footer = document.createElement("footer");
+  footer.className = "site-footer";
+  footer.innerHTML = `
+    <div class="wrap">
+      <p><strong>Dragon Hall Commons</strong> pedagogy, adapted for the web.</p>
+      <p class="fine">Lesson scripts and practice ideas adapted from
+        <a href="https://github.com/AlexBarba-x/commons">AlexBarba-x/commons</a>
+        (CC BY-SA 4.0). Voice and original examples reshaped for this site.
+        Problems here are original isomorphic practice — not copied from any test-prep worksheet.</p>
+      <p class="fine">The adult confirms grades. Reveal keys stay hidden until a grown-up opens them.</p>
+    </div>
+  `;
+
+  body.prepend(header);
+  body.append(footer);
+
+  const toggle = header.querySelector(".nav-toggle");
+  const nav = header.querySelector("#site-nav");
+  toggle.addEventListener("click", function () {
+    const open = nav.classList.toggle("open");
+    toggle.setAttribute("aria-expanded", String(open));
+  });
+
+  function normalize(s) {
+    return String(s || "")
+      .toLowerCase()
+      .replace(/\$/g, "")
+      .replace(/\s+/g, "")
+      .replace(/≤/g, "<=")
+      .replace(/≥/g, ">=")
+      .replace(/÷/g, "/")
+      .replace(/·/g, "*");
+  }
+
+  function accept(actual, accepted) {
+    const got = normalize(actual);
+    return accepted.some(function (item) {
+      return normalize(item) === got;
+    });
+  }
+
+  document.querySelectorAll("[data-check]").forEach(function (form) {
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+      const accepted = JSON.parse(form.getAttribute("data-accept") || "[]");
+      const box = form.querySelector("[name='answer']");
+      const chosen = form.querySelector("input[name='answer']:checked");
+      const value = box ? box.value : (chosen ? chosen.value : "");
+      const out = form.querySelector(".feedback");
+      if (accept(value, accepted)) {
+        out.className = "feedback ok";
+        out.textContent = "Yes. That matches the skill.";
+      } else {
+        out.className = "feedback no";
+        out.textContent = "Not yet. Try the steps again. A grown-up can open the reveal if you are stuck.";
+      }
+    });
+  });
+
+  function renderMath() {
+    if (window.renderMathInElement) {
+      window.renderMathInElement(document.body, {
+        delimiters: [
+          { left: "$$", right: "$$", display: true },
+          { left: "\\[", right: "\\]", display: true },
+          { left: "$", right: "$", display: false },
+          { left: "\\(", right: "\\)", display: false }
+        ],
+        throwOnError: false
+      });
+    }
+  }
+
+  if (document.readyState === "complete") {
+    renderMath();
+  } else {
+    window.addEventListener("load", renderMath);
+  }
+})();
+
+  </script>
+
+<script>
+(function(){
+  function show(id){
+    document.querySelectorAll('.route').forEach(function(el){ el.style.display = 'none'; });
+    var t = document.getElementById('route-' + id) || document.getElementById('route-home');
+    if (t) t.style.display = 'block';
+    window.scrollTo(0,0);
+    document.querySelectorAll('.site-nav a').forEach(function(a){
+      a.removeAttribute('aria-current');
+      if (a.getAttribute('href') === '#' + id) a.setAttribute('aria-current','page');
+    });
+    if (window.renderMathInElement) {
+      window.renderMathInElement(document.body, {
+        delimiters: [
+          {left:'$$', right:'$$', display:true},
+          {left:'\\[', right:'\\]', display:true},
+          {left:'$', right:'$', display:false},
+          {left:'\\(', right:'\\)', display:false}
+        ],
+        throwOnError:false
+      });
+    }
+  }
+  function fromHash(){
+    var id = (location.hash || '#home').replace(/^#/, '') || 'home';
+    show(id);
+  }
+  window.addEventListener('hashchange', fromHash);
+  window.addEventListener('DOMContentLoaded', fromHash);
+})();
+</script>
+
+</body>
+</html>
