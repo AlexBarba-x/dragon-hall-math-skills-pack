@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Signed mixed numbers · Dragon Hall</title>
+  <link rel="icon" href="../img/mark.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body data-prefix="../" data-page="signed">
+  <main id="main" class="wrap">
+    <p class="kicker">Lesson 1 of 4</p>
+    <h1>Signed mixed numbers</h1>
+    <p class="lede">You will add a negative mixed number to a positive mixed number when the parts have different bottom numbers.</p>
+
+    <section class="goal">
+      <h2>Goal</h2>
+      <p>Convert each mixed number. Glue every sign to its own number. Rewrite the parts in one common unit. Then add. You should be able to say why the sign travels with the number.</p>
+    </section>
+
+    <section class="cite">
+      <p><strong>Commons lessons cited:</strong>
+        <code>DH-MATH-5-NF-A-1-mixed-L001</code> (Wholes and Parts Together) and
+        <code>DH-MATH-7-NS-A-1d-L001</code> (Rearranging a Sum on Purpose).
+        Concept checks: <code>DH-MATH-5-NF-A-1-mixed-CC</code>, <code>DH-MATH-7-NS-A-1d-CC</code>.</p>
+    </section>
+
+    <section class="beat">
+      <p class="phase">Concrete · gather wholes, recut parts</p>
+      <p class="say"><b>Say</b> Put two mixed numbers on the mat in your mind. Gather wholes with wholes. The parts only add after they are the same size. If a half meets five eighths, trade the half for four eighths first.</p>
+      <p class="do"><b>Do</b> On paper, draw two rows: a wholes row and a parts row. For \(2\frac{1}{2} + 1\frac{5}{8}\), write wholes \(2 + 1\) and parts \(\frac{1}{2} + \frac{5}{8}\).</p>
+      <p class="listen"><b>Listen for</b> Four eighths and five eighths make nine eighths. Eight of those snap into one more whole, with one eighth left. The sum is \(4\frac{1}{8}\).</p>
+    </section>
+
+    <section class="beat">
+      <p class="phase">Pictorial · the sign is glued on</p>
+      <p class="say"><b>Say</b> Now one mixed number is negative. The two addition laws talk about adding only. Rewrite first so every sign rides with its number. A minus in front of a mixed number belongs to the whole value, not just the whole-number part.</p>
+      <p class="do"><b>Do</b> Rewrite \(-2\frac{1}{3} + 1\frac{5}{6}\) as adding a negative mixed number to a positive one. Turn each mixed number into one signed fraction.</p>
+      <p class="listen"><b>Listen for</b> \(-2\frac{1}{3} = -\dfrac{7}{3}\) and \(1\frac{5}{6} = \dfrac{11}{6}\). The minus stays in front of seven thirds. It does not get left behind.</p>
+      <p class="hint"><b>If stuck</b> Ask: which number does that minus belong to? Then insist on the rewrite as the first line.</p>
+    </section>
+
+    <section class="beat">
+      <p class="phase">Abstract · common unit, then signed sum</p>
+      <p class="say"><b>Say</b> Thirds and sixths are different sizes. Recut both fractions into sixths, then add the signed parts. Scan before you grind: after the rewrite, the chain is a pure sum.</p>
+      <p class="do"><b>Do</b> Convert \(-\dfrac{7}{3}\) to sixths and add \(\dfrac{11}{6}\).</p>
+      <p class="listen"><b>Listen for</b> \(-\dfrac{14}{6} + \dfrac{11}{6} = -\dfrac{3}{6} = -\dfrac{1}{2}\).</p>
+    </section>
+
+    <section class="example">
+      <h2>Worked example</h2>
+      <p>Compute \(-2\frac{1}{3} + 1\frac{5}{6}\).</p>
+      <ol class="steps">
+        <li>Rewrite as signed impropers: \(-\dfrac{7}{3} + \dfrac{11}{6}\).</li>
+        <li>Common unit sixths: \(-\dfrac{14}{6} + \dfrac{11}{6}\).</li>
+        <li>Add the numerators: \(-14 + 11 = -3\), so \(-\dfrac{3}{6}\).</li>
+        <li>Simplify: \(-\dfrac{1}{2}\).</li>
+      </ol>
+      <p>The rows way agrees: wholes \(-2 + 1 = -1\), parts \(-\dfrac{2}{6} + \dfrac{5}{6} = \dfrac{3}{6}\), then \(-1 + \dfrac{1}{2} = -\dfrac{1}{2}\).</p>
+    </section>
+
+    <section class="check">
+      <h2>Interactive check</h2>
+      <p>Write your answer, then check. A grown-up opens the reveal only if you need it.</p>
+
+      <form class="check-item" data-check data-accept='["-5/8","-0.625"]'>
+        <p class="prompt">1. Compute \(-3\frac{1}{4} + 2\frac{5}{8}\). Give a simplified fraction.</p>
+        <input type="text" name="answer" aria-label="Answer to problem 1" placeholder="example: -1/2" autocomplete="off">
+        <p><button class="btn" type="submit">Check</button></p>
+        <p class="feedback" role="status"></p>
+      </form>
+
+      <form class="check-item" data-check data-accept='["11/10","1 1/10","1 1/10","1.1"]'>
+        <p class="prompt">2. Compute \(-1\frac{2}{5} + 2\frac{1}{2}\). Mixed number or improper fraction is fine.</p>
+        <input type="text" name="answer" aria-label="Answer to problem 2" placeholder="example: 1 1/4" autocomplete="off">
+        <p><button class="btn" type="submit">Check</button></p>
+        <p class="feedback" role="status"></p>
+      </form>
+
+      <div class="adult">
+        <details>
+          <summary>Adult only — reveal keys</summary>
+          <div class="key">
+            <p><strong>1.</strong> \(-\dfrac{13}{4}+\dfrac{21}{8}=-\dfrac{26}{8}+\dfrac{21}{8}=-\dfrac{5}{8}\).</p>
+            <p><strong>2.</strong> \(-\dfrac{7}{5}+\dfrac{5}{2}=-\dfrac{14}{10}+\dfrac{25}{10}=\dfrac{11}{10}=1\frac{1}{10}\).</p>
+            <p>Watch for adding unlike parts without converting, or dropping the sign when the number is rewritten.</p>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <section class="next-row">
+      <a class="btn ghost" href="../practice/signed-mixed.html">Paper practice</a>
+      <a class="btn" href="inequality.html">Next lesson</a>
+    </section>
+  </main>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <script src="../js/app.js"></script>
+</body>
+</html>

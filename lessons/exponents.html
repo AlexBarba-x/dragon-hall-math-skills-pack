@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Integer exponent laws · Dragon Hall</title>
+  <link rel="icon" href="../img/mark.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body data-prefix="../" data-page="exp">
+  <main id="main" class="wrap">
+    <p class="kicker">Lesson 3 of 4</p>
+    <h1>Integer exponent laws</h1>
+    <p class="lede">You will simplify a product and a quotient of powers of the same base, including a zero exponent.</p>
+
+    <section class="goal">
+      <h2>Goal</h2>
+      <p>Read an exponent as a count of factors. Multiply by adding counts. Divide by subtracting counts. Show why a nonzero base to the power 0 must be 1, so the product law keeps working.</p>
+    </section>
+
+    <section class="cite">
+      <p><strong>Commons lesson cited:</strong>
+        <code>DH-MATH-8-EE-A-1-L001</code> (Where the Exponent Laws Come From).
+        Concept check: <code>DH-MATH-8-EE-A-1-CC</code>.</p>
+    </section>
+
+    <section class="beat">
+      <p class="phase">Concrete · count the factors</p>
+      <p class="say"><b>Say</b> For a positive whole number \(n\), \(a^n\) means \(a\) multiplied by itself \(n\) times. An exponent is a count.</p>
+      <p class="do"><b>Do</b> Write \(a^4 \cdot a^3\) out as factors and count.</p>
+      <p class="listen"><b>Listen for</b> Four factors joined with three factors make seven factors, so \(a^4 \cdot a^3 = a^7\). In general \(a^m \cdot a^n = a^{m+n}\).</p>
+    </section>
+
+    <section class="beat">
+      <p class="phase">Concrete · division is counting backwards</p>
+      <p class="say"><b>Say</b> In \(\dfrac{a^5}{a^2}\), two factors on the bottom cancel two of the five on top, leaving three. The exponents subtract.</p>
+      <p class="do"><b>Do</b> Write \(\dfrac{a^6}{a^4}\) in factors and cancel.</p>
+      <p class="listen"><b>Listen for</b> \(a^2\). You do not have to memorize if you can count.</p>
+    </section>
+
+    <section class="beat">
+      <p class="phase">Pictorial · why the zero exponent is 1</p>
+      <p class="say"><b>Say</b> What should \(a^0\) mean? Multiply \(a\) by itself zero times does not describe anything. Mathematicians give zero the meaning that keeps the product law true.</p>
+      <p class="do"><b>Do</b> Finish this: \(a^m \cdot a^0\) must equal \(a^{m+0}\), which is just \(a^m\). What number can you multiply by without changing anything?</p>
+      <p class="listen"><b>Listen for</b> 1. So \(a^0 = 1\) for any nonzero \(a\). It is not 0.</p>
+    </section>
+
+    <section class="beat">
+      <p class="phase">Abstract · same base, then simplify</p>
+      <p class="say"><b>Say</b> These laws are about multiplying and dividing powers of the <em>same</em> base. They say nothing about sums. Check: \((2+3)^2 = 25\), but \(2^2 + 3^2 = 13\).</p>
+      <p class="do"><b>Do</b> Simplify \(\dfrac{4^5 \cdot 4^0}{4^2}\) by naming the law at each step.</p>
+      <p class="listen"><b>Listen for</b> Product law: \(4^{5+0} = 4^5\). Quotient law: \(4^{5-2} = 4^3 = 64\). Zero exponent made a factor of 1.</p>
+    </section>
+
+    <section class="example">
+      <h2>Worked example</h2>
+      <p>Simplify \(\dfrac{4^5 \cdot 4^0}{4^2}\).</p>
+      <ol class="steps">
+        <li>Same base 4, so the laws apply.</li>
+        <li>\(4^0 = 1\), and \(4^5 \cdot 1 = 4^5\) (or add: \(5 + 0 = 5\)).</li>
+        <li>Divide: \(5 - 2 = 3\), so \(4^3\).</li>
+        <li>\(4^3 = 64\).</li>
+      </ol>
+    </section>
+
+    <section class="check">
+      <h2>Interactive check</h2>
+
+      <form class="check-item" data-check data-accept='["7^7","823543"]'>
+        <p class="prompt">1. Simplify \(\dfrac{7^3 \cdot 7^4}{7^0}\) as a single power of 7.</p>
+        <input type="text" name="answer" aria-label="Answer to problem 1" placeholder="example: 5^3" autocomplete="off">
+        <p><button class="btn" type="submit">Check</button></p>
+        <p class="feedback" role="status"></p>
+      </form>
+
+      <form class="check-item" data-check data-accept='["32","2^5"]'>
+        <p class="prompt">2. Simplify \(\dfrac{2^8}{2^3 \cdot 2^0}\) as a number or as \(2^5\).</p>
+        <input type="text" name="answer" aria-label="Answer to problem 2" placeholder="example: 16" autocomplete="off">
+        <p><button class="btn" type="submit">Check</button></p>
+        <p class="feedback" role="status"></p>
+      </form>
+
+      <div class="adult">
+        <details>
+          <summary>Adult only — reveal keys</summary>
+          <div class="key">
+            <p><strong>1.</strong> \(7^{3+4-0} = 7^7\). The zero exponent does not wipe the other factors out.</p>
+            <p><strong>2.</strong> \(2^{8-3-0} = 2^5 = 32\).</p>
+            <p>Catch: multiplying exponents instead of adding, or saying \(a^0 = 0\).</p>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <section class="next-row">
+      <a class="btn ghost" href="../practice/exponents.html">Paper practice</a>
+      <a class="btn" href="percent-pay.html">Next lesson</a>
+    </section>
+  </main>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <script src="../js/app.js"></script>
+</body>
+</html>
